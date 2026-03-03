@@ -1,0 +1,1 @@
+//Logica OpenAI / Claude
