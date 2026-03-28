@@ -36,7 +36,7 @@ export const typography = {
   } as TextStyle,
 
   h2: {
-    fontSize: fontSize['3xl'],
+    fontSize: fontSize['4xl'],
     fontFamily: fontFamily.bold,
     lineHeight: fontSize['3xl'] * lineHeight.tight,
   } as TextStyle,
@@ -103,7 +103,7 @@ export const typography = {
   } as TextStyle,
 
   brand: {
-    fontSize: fontSize.xl,
+    fontSize: fontSize['3xl'],
     fontFamily: fontFamily.bold,
   } as TextStyle,
 } as const

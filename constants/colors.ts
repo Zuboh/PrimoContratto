@@ -3,6 +3,8 @@ export const colors = {
   primaryDark: '#0E7490',
   primaryLight: '#CFFAFE',
   primaryForeground: '#FFFFFF',
+  gradientStart: '#0E6481',
+  gradientEnd: '#30A3A5',
 
   background: '#FFFFFF',
   surface: '#F0FDFF',
@@ -44,3 +46,9 @@ export const colors = {
 } as const
 
 export type ColorKey = keyof typeof colors
+
+export const STATUS_COLORS: Record<'green' | 'yellow' | 'red', string> = {
+  green: '#0B7B3E',
+  yellow: '#C05B00',
+  red: '#DC2626',
+}

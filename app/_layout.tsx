@@ -1,3 +1,4 @@
+import { ToastProvider } from '@/contexts/ToastContext'
 import {
   Inter_400Regular,
   Inter_500Medium,
@@ -31,11 +32,17 @@ export default function RootLayout() {
 
   return (
     <ThemeProvider>
-      <StatusBar style="dark" />
-      <Stack screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="index" />
-        {__DEV__ && <Stack.Screen name="playground" />}
-      </Stack>
+      <ToastProvider>
+        <StatusBar style="dark" />
+        <Stack screenOptions={{ headerShown: false, animation: 'fade' }}>
+          <Stack.Screen name="(tabs)" />
+          <Stack.Screen name="upload" />
+          <Stack.Screen name="loading" />
+          <Stack.Screen name="report/[id]" />
+          <Stack.Screen name="negotation/[id]" />
+          {__DEV__ && <Stack.Screen name="playground" />}
+        </Stack>
+      </ToastProvider>
     </ThemeProvider>
   )
 }

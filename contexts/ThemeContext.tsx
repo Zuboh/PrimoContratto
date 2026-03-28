@@ -6,7 +6,7 @@ import {
   lineHeight,
   typography,
 } from '@/constants/typography'
-import { createContext, useContext } from 'react'
+import { createContext } from 'react'
 
 const theme = {
   colors,
@@ -22,11 +22,7 @@ const theme = {
 
 export type Theme = typeof theme
 
-const ThemeContext = createContext<Theme>(theme)
-
-export function useTheme(): Theme {
-  return useContext(ThemeContext)
-}
+export const ThemeContext = createContext<Theme>(theme)
 
 interface ThemeProviderProps {
   children: React.ReactNode

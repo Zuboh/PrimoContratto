@@ -1,43 +1,9 @@
 export type ClauseStatus = 'green' | 'yellow' | 'red'
-
 export type GlobalStatus = 'positive' | 'warning' | 'critical'
-
-export type ContractType =
-  | 'Tempo Determinato'
-  | 'Tempo Indeterminato'
-  | 'Stage'
-  | 'Apprendistato'
-  | 'Partita IVA'
-  | 'Collaborazione'
-  | 'Altro'
-
-export interface Clause {
-  status: ClauseStatus
-  title: string
-  summary: string
-  detail: string
-  action: string
-}
-
-export interface AnalysisResult {
-  contractType: ContractType
-  ccnl: string
-  globalStatus: GlobalStatus
-  summary: string
-  clauses: Clause[]
-  missingItems: string[]
-  negotiationScript: string
-  didYouKnow: string
-}
-
-export interface AnalysisEntry {
-  id: string
-  contractName: string
-  pdfHash: string
-  result: AnalysisResult
-  createdAt: string
-}
-
+export type Plan = 'free' | 'pro'
+export type ButtonVariant = 'primary' | 'secondary' | 'ghost'
+export type BadgeVariant = 'default' | 'success' | 'warning' | 'error'
+export type ToastType = 'success' | 'error' | 'info' | 'warning'
 export type UploadStep =
   | 'idle'
   | 'receiving'
@@ -46,6 +12,72 @@ export type UploadStep =
   | 'preparing'
   | 'done'
   | 'error'
+export type TabRoute = 'analyze' | 'history' | 'settings'
+
+export interface Clause {
+  id: string
+  title: string
+  summary: string
+  detail: string
+  status: ClauseStatus
+}
+
+export interface MissingClause {
+  id: string
+  title: string
+  description: string
+}
+
+export interface ContractResult {
+  documentType: 'contract'
+  contractType: string
+  ccnl: string
+  globalStatus: GlobalStatus
+  summary: string
+  clauses: Clause[]
+  missingClauses: MissingClause[]
+}
+
+export interface PayslipItem {
+  id: string
+  label: string
+  value: string
+  note: string
+  status: ClauseStatus
+}
+
+export interface PayslipAnomaly {
+  id: string
+  title: string
+  description: string
+}
+
+export interface PayslipResult {
+  documentType: 'payslip'
+  period: string
+  ccnl: string
+  globalStatus: GlobalStatus
+  summary: string
+  grossSalary: string
+  netSalary: string
+  items: PayslipItem[]
+  anomalies: PayslipAnomaly[]
+}
+
+export interface UnknownResult {
+  documentType: 'unknown'
+  summary: string
+}
+
+export type AnalysisResult = ContractResult | PayslipResult | UnknownResult
+
+export interface AnalysisEntry {
+  id: string
+  fileName: string
+  pdfHash: string
+  createdAt: string
+  result: AnalysisResult
+}
 
 export interface UploadState {
   step: UploadStep
@@ -62,8 +94,6 @@ export interface UploadedFile {
   size: number
 }
 
-export type Plan = 'free' | 'pro'
-
 export interface User {
   id: string
   email: string
@@ -71,8 +101,6 @@ export interface User {
   analysesThisMonth: number
   createdAt: string
 }
-
-export type TabRoute = 'analyze' | 'history' | 'settings'
 
 export interface NavTab {
   route: TabRoute
@@ -85,12 +113,6 @@ export interface ApiResponse<T> {
   error: string | null
   cached: boolean
 }
-
-export type ButtonVariant = 'primary' | 'secondary' | 'ghost'
-
-export type BadgeVariant = 'default' | 'success' | 'warning' | 'error'
-
-export type ToastType = 'success' | 'error' | 'info'
 
 export interface ToastMessage {
   type: ToastType
