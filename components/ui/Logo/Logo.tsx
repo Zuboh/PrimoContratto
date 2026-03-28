@@ -1,41 +1,14 @@
-import { useTheme } from '@/contexts/ThemeContext'
+import LogoSvg from '@/assets/images/icon.svg'
+import { useTheme } from '@/hooks/useTheme'
+import MaskedView from '@react-native-masked-view/masked-view'
+import { LinearGradient } from 'expo-linear-gradient'
 import React from 'react'
 import { Text, View } from 'react-native'
-import Svg, { Circle, Line, Path } from 'react-native-svg'
 import { createStyles } from './Logo.styles'
 import { LogoProps, LogoWithTextProps } from './Logo.types'
 
-function LogoIcon({ size, color }: { size: number; color: string }) {
-  const iconSize = size * 0.55
-
-  return (
-    <Svg
-      width={iconSize}
-      height={iconSize}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke={color}
-      strokeWidth={2}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <Path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-      <Path d="M14 2L14 8L20 8" />
-      <Circle cx="11" cy="14" r="3" />
-      <Line x1="17" y1="20" x2="14.5" y2="17.5" />
-    </Svg>
-  )
-}
-
-export function Logo({ size = 36, style }: LogoProps) {
-  const theme = useTheme()
-  const styles = createStyles(theme, size)
-
-  return (
-    <View style={[styles.iconWrapper, style]}>
-      <LogoIcon size={size} color={theme.colors.primary} />
-    </View>
-  )
+export function Logo({ size = 36 }: LogoProps) {
+  return <LogoSvg width={size} height={size} />
 }
 
 export function LogoWithText({ size = 36, style }: LogoWithTextProps) {
@@ -45,7 +18,17 @@ export function LogoWithText({ size = 36, style }: LogoWithTextProps) {
   return (
     <View style={[styles.row, style]}>
       <Logo size={size} />
-      <Text style={styles.brandName}>PrimoContratto</Text>
+      <MaskedView
+        maskElement={<Text style={styles.brandName}>PrimoContratto</Text>}
+      >
+        <LinearGradient
+          colors={[theme.colors.gradientStart, theme.colors.gradientEnd]}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 0 }}
+        >
+          <Text style={[styles.brandName, { opacity: 0 }]}>PrimoContratto</Text>
+        </LinearGradient>
+      </MaskedView>
     </View>
   )
 }

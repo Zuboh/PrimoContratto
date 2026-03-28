@@ -1,6 +1,6 @@
+import { useTheme } from '@/hooks/useTheme'
 import React from 'react'
 import { Text, View } from 'react-native'
-import { useTheme } from '../../../contexts/ThemeContext'
 import { createStyles, getVariantConfig } from './Badge.styles'
 import { BadgeProps } from './Badge.types'
 import { BadgeSkeleton } from './BadgeSkeleton'

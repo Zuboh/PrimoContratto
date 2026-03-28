@@ -1,3 +1,4 @@
+import { useTheme } from '@/hooks/useTheme'
 import React, { useEffect } from 'react'
 import { View, ViewStyle } from 'react-native'
 import Animated, {
@@ -6,7 +7,6 @@ import Animated, {
     withRepeat,
     withTiming,
 } from 'react-native-reanimated'
-import { useTheme } from '../../../contexts/ThemeContext'
 
 interface SkeletonProps {
   width: number | `${number}%`

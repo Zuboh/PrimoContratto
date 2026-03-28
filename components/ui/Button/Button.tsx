@@ -1,4 +1,4 @@
-import { useTheme } from 'contexts/ThemeContext'
+import { useTheme } from '@/hooks/useTheme'
 import React, { useMemo } from 'react'
 import { ActivityIndicator, Text, TouchableOpacity } from 'react-native'
 import { createButtonStyles } from './Button.styles'

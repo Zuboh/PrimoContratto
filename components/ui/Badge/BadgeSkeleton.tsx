@@ -1,4 +1,4 @@
-import { useTheme } from '@/contexts/ThemeContext'
+import { useTheme } from '@/hooks/useTheme'
 import { Skeleton } from '../Skeleton'
 
 export function BadgeSkeleton({ width = 80 }: { width?: number }) {

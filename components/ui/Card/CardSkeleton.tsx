@@ -1,6 +1,7 @@
 import React from 'react'
 import { View } from 'react-native'
-import { useTheme } from '../../../contexts/ThemeContext'
+
+import { useTheme } from '@/hooks/useTheme'
 import { Skeleton } from '../Skeleton'
 import { SkeletonRow } from '../Skeleton/Skeleton'
 
