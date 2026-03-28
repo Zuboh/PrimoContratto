@@ -1,0 +1,2 @@
+export { PayslipItemCard } from './PayslipItemCard';
+

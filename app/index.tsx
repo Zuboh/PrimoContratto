@@ -1,8 +1,6 @@
-// app/index.tsx
-
 import { Button } from '@/components/ui/Button'
 import { Logo } from '@/components/ui/Logo/Logo'
-import { useTheme } from '@/contexts/ThemeContext'
+import { useTheme } from '@/hooks/useTheme'
 import { router } from 'expo-router'
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
@@ -73,8 +71,11 @@ export default function WorkInProgress() {
         {IS_DEV && (
           <Button
             label="Apri Playground"
-            onPress={() => router.push('/playground')}
+            onPress={() => router.navigate('/playground')}
           />
+        )}
+        {IS_DEV && (
+          <Button label="Apri App" onPress={() => router.navigate('/(tabs)')} />
         )}
       </View>
 
@@ -116,3 +117,8 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
 })
+
+/* export default function Index() {
+  return <Redirect href="/(tabs)" />
+}
+ */
