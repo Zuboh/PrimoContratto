@@ -7,7 +7,7 @@ import { WarningBannerProps } from './Warningbanner.types'
 export function WarningBanner({ status, style }: WarningBannerProps) {
   const theme = useTheme()
   const styles = createStyles(theme)
-  const config = CONFIG[status]
+  const config = CONFIG[status] ?? CONFIG['warning']
   const Icon = config.icon
 
   return (

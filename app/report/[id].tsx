@@ -8,6 +8,7 @@ import {
 import { AnomaliesCard } from '@/components/reports/AnomaliesCard/AnomaliesCard'
 import { PayslipHeader } from '@/components/reports/PayslipHeader/PayslipHeader'
 import { PayslipItems } from '@/components/reports/PayslipItems/PayslipItems'
+import { ScoreBar } from '@/components/reports/ScoreBar/ScoreBar'
 import { Badge } from '@/components/ui/Badge'
 import { LogoWithText } from '@/components/ui/Logo/Logo'
 import { useTheme } from '@/hooks/useTheme'
@@ -22,13 +23,12 @@ export default function ReportScreen() {
   const { colors, typography, spacing } = useTheme()
   const { currentAnalysis, currentFileName } = useAnalysisStore()
 
-  // Nessuna analisi → torna alla home
   if (!currentAnalysis) {
     router.replace('/')
     return null
   }
 
-  // Documento non riconosciuto
+  // ── Documento non riconosciuto ──────────────────────────────────────────
   if (currentAnalysis.documentType === 'unknown') {
     return (
       <SafeAreaView style={{ flex: 1, backgroundColor: colors.background }}>
@@ -85,6 +85,10 @@ export default function ReportScreen() {
   const isContract = currentAnalysis.documentType === 'contract'
   const isPayslip = currentAnalysis.documentType === 'payslip'
 
+  const ctaLabel = isContract
+    ? 'Vedi lo script di negoziazione →'
+    : 'Chiedi supporto su questa busta paga →'
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.background }}>
       <ScrollView
@@ -92,11 +96,25 @@ export default function ReportScreen() {
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
       >
-        {/* Logo */}
-        <LogoWithText size={36} style={{ marginBottom: spacing[4] }} />
+        {/* ── Header ── */}
+        <View style={styles.headerRow}>
+          <LogoWithText size={28} />
+          {currentFileName && (
+            <Text
+              style={[
+                typography.caption,
+                { color: colors.muted, flex: 1, textAlign: 'right' },
+              ]}
+              numberOfLines={1}
+              ellipsizeMode="middle"
+            >
+              {currentFileName}
+            </Text>
+          )}
+        </View>
 
-        {/* Badge tipo documento */}
-        <View style={{ flexDirection: 'row', marginBottom: spacing[4] }}>
+        {/* ── Badge tipo documento ── */}
+        <View style={{ flexDirection: 'row', marginBottom: spacing[3] }}>
           {isContract && (
             <Badge
               label={`${(currentAnalysis as ContractResult).contractType} · ${(currentAnalysis as ContractResult).ccnl}`}
@@ -111,19 +129,25 @@ export default function ReportScreen() {
           )}
         </View>
 
-        {/* Warning banner */}
+        {/* ── Warning banner ── */}
         <WarningBanner
           status={currentAnalysis.globalStatus}
           style={{ marginBottom: spacing[4] }}
         />
 
-        {/* Riepilogo AI */}
+        {/* ── ScoreBar — passa l'analisi, pensa a tutto da sola ── */}
+        <ScoreBar
+          analysis={currentAnalysis}
+          style={{ marginBottom: spacing[4] }}
+        />
+
+        {/* ── Riepilogo AI ── */}
         <SummaryCard
           summary={currentAnalysis.summary}
           style={{ marginBottom: spacing[6] }}
         />
 
-        {/* ── LAYOUT CONTRATTO ── */}
+        {/* ── Sezione contratto ── */}
         {isContract && (
           <>
             <ClauseList clauses={(currentAnalysis as ContractResult).clauses} />
@@ -136,7 +160,7 @@ export default function ReportScreen() {
           </>
         )}
 
-        {/* ── LAYOUT BUSTA PAGA ── */}
+        {/* ── Sezione busta paga ── */}
         {isPayslip && (
           <>
             <PayslipHeader
@@ -155,38 +179,30 @@ export default function ReportScreen() {
           </>
         )}
 
-        {/* Spacer per CTA */}
         <View style={{ height: 120 }} />
       </ScrollView>
 
-      {/* CTA fissa — solo per contratti */}
-      {isContract && (
-        <View
-          style={[
-            styles.ctaContainer,
-            {
-              backgroundColor: colors.background,
-              borderTopColor: colors.border,
-            },
-          ]}
+      {/* ── CTA fissa ── */}
+      <View
+        style={[
+          styles.ctaContainer,
+          { backgroundColor: colors.background, borderTopColor: colors.border },
+        ]}
+      >
+        <Pressable
+          style={[styles.ctaButton, { backgroundColor: colors.primary }]}
+          onPress={() =>
+            router.push({
+              pathname: '/negotation/[id]',
+              params: { id: Date.now().toString() },
+            })
+          }
         >
-          <Pressable
-            style={[styles.ctaButton, { backgroundColor: colors.primary }]}
-            onPress={() =>
-              router.push({
-                pathname: '/negotation/[id]',
-                params: { id: Date.now().toString() },
-              })
-            }
-          >
-            <Text
-              style={[typography.label, { color: colors.primaryForeground }]}
-            >
-              Vedi lo script di negoziazione →
-            </Text>
-          </Pressable>
-        </View>
-      )}
+          <Text style={[typography.label, { color: colors.primaryForeground }]}>
+            {ctaLabel}
+          </Text>
+        </Pressable>
+      </View>
 
       <BottomNav />
     </SafeAreaView>
@@ -201,6 +217,13 @@ const styles = StyleSheet.create({
   scrollContent: {
     padding: 24,
     paddingTop: 16,
+  },
+  headerRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: 16,
+    gap: 12,
   },
   ctaContainer: {
     padding: 16,
