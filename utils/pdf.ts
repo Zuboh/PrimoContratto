@@ -33,8 +33,6 @@ export function isPdf(uri: string): boolean {
 
 /**
  * Controlla se un file supera la dimensione massima
- * @param sizeBytes dimensione in bytes
- * @param maxMb dimensione massima in MB (default 10)
  */
 export function isFileTooLarge(base64: string): boolean {
   return base64.length > UPLOAD.maxBase64Length

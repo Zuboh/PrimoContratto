@@ -2,5 +2,8 @@
   "compilerOptions": {
     "allowImportingTsExtensions": true,
     "strict": true
+  },
+  "imports": {
+    "pdf-parse": "npm:pdf-parse@1.1.1"
   }
 }

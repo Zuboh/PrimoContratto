@@ -29,7 +29,7 @@ export function useUpload() {
 
       const file = result.assets[0]
 
-      if (file.size && isFileTooLarge(file.size)) {
+      if (file.size && isFileTooLarge(file.size.toString())) {
         toast.error('Il file è troppo grande. Massimo 10MB.')
         return
       }
