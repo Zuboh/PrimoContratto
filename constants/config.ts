@@ -1,5 +1,3 @@
-// ── App info ─────────────────────────────
-
 export const APP = {
   name: 'PrimoContratto',
   version: '1.0.0',
@@ -33,6 +31,7 @@ export const PLAN = {
 export const UPLOAD = {
   maxFileSizeMb: 10,
   maxFileSizeBytes: 10 * 1024 * 1024,
+  maxBase64Length: 2_700_000,
   acceptedMimeTypes: ['application/pdf', 'image/jpeg', 'image/png'],
   acceptedExtensions: ['.pdf', '.jpg', '.jpeg', '.png'],
 } as const

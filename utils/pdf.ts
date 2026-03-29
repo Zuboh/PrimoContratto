@@ -1,3 +1,4 @@
+import { UPLOAD } from '@/constants/config'
 import * as Crypto from 'expo-crypto'
 
 import * as FileSystem from 'expo-file-system/legacy'
@@ -35,6 +36,6 @@ export function isPdf(uri: string): boolean {
  * @param sizeBytes dimensione in bytes
  * @param maxMb dimensione massima in MB (default 10)
  */
-export function isFileTooLarge(sizeBytes: number, maxMb = 10): boolean {
-  return sizeBytes > maxMb * 1024 * 1024
+export function isFileTooLarge(base64: string): boolean {
+  return base64.length > UPLOAD.maxBase64Length
 }
