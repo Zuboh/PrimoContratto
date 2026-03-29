@@ -1,6 +1,6 @@
-import { corsHeaders, error } from './lib/cors.ts'
 import { handleAnalyze } from './handlers/analyze.ts'
 import { handleNegotiate } from './handlers/negotiate.ts'
+import { corsHeaders, error } from './lib/cors.ts'
 
 Deno.serve(async (req) => {
   console.log('Richiesta ricevuta:', req.method, req.url)
@@ -23,7 +23,6 @@ Deno.serve(async (req) => {
       default:
         return error(400, `Action non valida: ${action}`)
     }
-
   } catch (err) {
     console.error('Errore generale:', err instanceof Error ? err.message : err)
     return error(500, err instanceof Error ? err.message : 'Errore interno')

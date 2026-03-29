@@ -8,7 +8,10 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "lint": "expo lint"
+    "lint": "expo lint",
+    "functions:serve": "supabase functions serve analyze-contract --env-file supabase/.env.local --no-verify-jwt",
+    "functions:deploy": "supabase functions deploy analyze-contract",
+    "functions:logs": "supabase functions logs analyze-contract"
   },
   "dependencies": {
     "@expo-google-fonts/inter": "^0.4.2",

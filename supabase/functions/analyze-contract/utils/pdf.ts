@@ -1,10 +1,10 @@
-import { default as pdfParse } from 'npm:pdf-parse'
+import { extractText } from 'npm:unpdf'
 
 export async function extractTextFromPdf(base64: string): Promise<string> {
   try {
     const buffer = Uint8Array.from(atob(base64), (c) => c.charCodeAt(0))
-    const data = await pdfParse(buffer)
-    return data.text ?? ''
+    const { text } = await extractText(buffer, { mergePages: true })
+    return text ?? ''
   } catch (e) {
     console.error('Errore estrazione testo PDF:', e)
     return ''
