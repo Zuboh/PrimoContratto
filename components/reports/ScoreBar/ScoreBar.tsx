@@ -1,9 +1,9 @@
 import { useTheme } from '@/hooks/useTheme'
 import React from 'react'
 import { Text, View } from 'react-native'
-import { createStyles } from './Scorebar.styles'
+import { createStyles } from './ScoreBar.styles'
 import { ScoreBarProps } from './ScoreBar.types'
-import { buildScoreData } from './Scorebar.utils'
+import { buildScoreData } from './ScoreBar.utils'
 
 export function ScoreBar({ analysis, style }: ScoreBarProps) {
   const theme = useTheme()
