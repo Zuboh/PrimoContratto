@@ -15,6 +15,7 @@ import { useTheme } from '@/hooks/useTheme'
 import { useAnalysisStore } from '@/stores/analysisStore'
 import { ContractResult, PayslipResult } from '@/types'
 import { router } from 'expo-router'
+import { FileQuestion } from 'lucide-react-native'
 import React from 'react'
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
@@ -38,7 +39,7 @@ export default function ReportScreen() {
             { alignItems: 'center', justifyContent: 'center' },
           ]}
         >
-          <Text style={{ fontSize: 48 }}>🤔</Text>
+          <FileQuestion size={48} color={colors.muted} />
           <Text
             style={[
               typography.h2,
@@ -84,10 +85,6 @@ export default function ReportScreen() {
 
   const isContract = currentAnalysis.documentType === 'contract'
   const isPayslip = currentAnalysis.documentType === 'payslip'
-
-  const ctaLabel = isContract
-    ? 'Vedi lo script di negoziazione →'
-    : 'Chiedi supporto su questa busta paga →'
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.background }}>
@@ -182,28 +179,6 @@ export default function ReportScreen() {
         <View style={{ height: 120 }} />
       </ScrollView>
 
-      {/* ── CTA fissa ── */}
-      <View
-        style={[
-          styles.ctaContainer,
-          { backgroundColor: colors.background, borderTopColor: colors.border },
-        ]}
-      >
-        <Pressable
-          style={[styles.ctaButton, { backgroundColor: colors.primary }]}
-          onPress={() =>
-            router.push({
-              pathname: '/negotation/[id]',
-              params: { id: Date.now().toString() },
-            })
-          }
-        >
-          <Text style={[typography.label, { color: colors.primaryForeground }]}>
-            {ctaLabel}
-          </Text>
-        </Pressable>
-      </View>
-
       <BottomNav />
     </SafeAreaView>
   )
@@ -224,10 +199,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginBottom: 16,
     gap: 12,
-  },
-  ctaContainer: {
-    padding: 16,
-    borderTopWidth: 1,
   },
   ctaButton: {
     borderRadius: 16,
