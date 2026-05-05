@@ -1,6 +1,7 @@
 import { useToastContext } from '@/contexts/ToastContext'
 import { analyzeContract } from '@/services/ai'
 import { useAnalysisStore, useHistoryStore } from '@/stores'
+import { useAuthStore } from '@/stores/authStore'
 import { clearPendingUpload, getPendingUpload } from '@/stores/pendingUpload'
 import { AnalysisResult } from '@/types'
 import { router } from 'expo-router'
@@ -43,6 +44,7 @@ export function useAnalysis() {
 
     const id = Date.now().toString()
     setAnalysis(result, pending.fileName)
+    useAuthStore.getState().incrementAnalysisCount()
     addEntry({
       id,
       fileName: pending.fileName,
