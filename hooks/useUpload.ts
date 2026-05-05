@@ -1,7 +1,9 @@
 import { useToastContext } from '@/contexts/ToastContext'
 import { useAnalysisStore } from '@/stores/analysisStore'
 import { useAuthStore } from '@/stores/authStore'
+import { useHistoryStore } from '@/stores/historyStore'
 import { setPendingUpload } from '@/stores/pendingUpload'
+import { UPLOAD } from '@/constants/config'
 import { generatePdfHash, isFileTooLarge, uriToBase64 } from '@/utils/pdf'
 import * as DocumentPicker from 'expo-document-picker'
 import * as Haptics from 'expo-haptics'
@@ -37,8 +39,20 @@ export function useUpload() {
 
       const base64 = await uriToBase64(file.uri)
       console.log('1. base64 ok, lunghezza:', base64.length)
+
+      if (base64.length > UPLOAD.maxBase64Length) {
+        toast.info('Documento lungo, analisi parziale')
+      }
+
       const hash = await generatePdfHash(base64)
       console.log('2. hash ok:', hash)
+
+      const cached = useHistoryStore.getState().getCachedByHash(hash)
+      if (cached) {
+        useAnalysisStore.getState().setAnalysis(cached.result, cached.fileName)
+        router.push({ pathname: '/report/[id]', params: { id: cached.id } })
+        return
+      }
 
       setPendingUpload({ base64, hash, fileName: file.name, type: 'pdf' })
       console.log('3. pendingUpload settato')

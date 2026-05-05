@@ -119,3 +119,17 @@ export interface ToastMessage {
   message: string
   duration?: number
 }
+
+export interface NegotiationPoint {
+  id: string
+  clauseTitle: string
+  opening: string
+  objectionResponse: string
+  fallback: string
+}
+
+export interface NegotiationResult {
+  intro: string
+  points: NegotiationPoint[]
+  closing: string
+}
