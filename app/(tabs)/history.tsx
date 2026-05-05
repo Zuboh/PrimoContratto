@@ -56,7 +56,6 @@ export default function HistoryScreen() {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.background }}>
       <View style={[styles.header, { borderBottomColor: colors.border }]}>
-        <Text style={[typography.h2, { color: colors.foreground }]}>Cronologia</Text>
         {entries.length > 0 && (
           <Pressable onPress={handleClearAll} hitSlop={8}>
             <Trash2 size={20} color={colors.muted} />
