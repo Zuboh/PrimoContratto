@@ -1,5 +1,6 @@
 import { useToastContext } from '@/contexts/ToastContext'
 import { useAnalysisStore } from '@/stores/analysisStore'
+import { useAuthStore } from '@/stores/authStore'
 import { setPendingUpload } from '@/stores/pendingUpload'
 import { generatePdfHash, isFileTooLarge, uriToBase64 } from '@/utils/pdf'
 import * as DocumentPicker from 'expo-document-picker'
@@ -41,6 +42,11 @@ export function useUpload() {
 
       setPendingUpload({ base64, hash, fileName: file.name, type: 'pdf' })
       console.log('3. pendingUpload settato')
+
+      if (!useAuthStore.getState().canAnalyze()) {
+        toast.error('Hai raggiunto il limite di 3 analisi gratuite questo mese.')
+        return
+      }
 
       setStep('receiving')
       console.log('4. step settato')
@@ -85,6 +91,12 @@ export function useUpload() {
         fileName: 'foto_contratto.jpg',
         type: 'image',
       })
+
+      if (!useAuthStore.getState().canAnalyze()) {
+        toast.error('Hai raggiunto il limite di 3 analisi gratuite questo mese.')
+        return
+      }
+
       setStep('receiving')
     } catch {
       toast.error('Errore durante lo scatto della foto.')
