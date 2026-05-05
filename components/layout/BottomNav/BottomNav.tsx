@@ -53,8 +53,10 @@ export function BottomNav() {
             route === '/'
               ? pathname === '/' ||
                 pathname === '/upload' ||
-                pathname === '/loading'
-              : pathname === route
+                pathname === '/loading' ||
+                pathname.startsWith('/report') ||
+                pathname.startsWith('/negotation')
+              : pathname === route || pathname.endsWith(route)
           }
           onPress={() => handlePress(route)}
         />
