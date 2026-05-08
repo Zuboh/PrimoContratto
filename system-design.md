@@ -249,6 +249,8 @@ components/domain/ComponentName/
 Claude auto-loads memory from `.claude/projects/.../memory/MEMORY.md`. Architecture context is pre-loaded — no need to re-explain.
 
 ### Implementing features
+0. Create branch from main: `git checkout main && git pull && git checkout -b <prefix>/<task-slug>`
+   - `feat/` new feature · `fix/` bug · `ui/` visual · `refactor/` · `docs/`
 1. Check `TASKS.md` for priority and notes on each task
 2. Follow component pattern (4 files + non-empty `index.ts`)
 3. All colors via `theme.colors.*` — never hardcode hex
