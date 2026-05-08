@@ -4,7 +4,7 @@ import { useHistoryStore } from '@/stores/historyStore'
 import { AnalysisEntry } from '@/types'
 import { formatRelativeDate } from '@/utils/format'
 import { router } from 'expo-router'
-import { FileText, Trash2 } from 'lucide-react-native'
+import { ChevronRight, FileText, Trash2 } from 'lucide-react-native'
 import { Alert, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
@@ -23,6 +23,31 @@ function getDocTypeLabel(type: string) {
   if (type === 'contract') return 'Contratto'
   if (type === 'payslip') return 'Busta paga'
   return 'Documento'
+}
+
+function groupEntriesByDate(entries: AnalysisEntry[]): Array<{ label: string; data: AnalysisEntry[] }> {
+  const today = new Date()
+  today.setHours(0, 0, 0, 0)
+  const weekAgo = new Date(today)
+  weekAgo.setDate(weekAgo.getDate() - 7)
+
+  const groups: { [key: string]: AnalysisEntry[] } = {
+    'Oggi': [],
+    'Questa settimana': [],
+    'Precedenti': [],
+  }
+
+  for (const entry of entries) {
+    const date = new Date(entry.createdAt)
+    date.setHours(0, 0, 0, 0)
+    if (date >= today) groups['Oggi'].push(entry)
+    else if (date >= weekAgo) groups['Questa settimana'].push(entry)
+    else groups['Precedenti'].push(entry)
+  }
+
+  return Object.entries(groups)
+    .filter(([, data]) => data.length > 0)
+    .map(([label, data]) => ({ label, data }))
 }
 
 export default function HistoryScreen() {
@@ -52,9 +77,12 @@ export default function HistoryScreen() {
     ])
   }
 
+  const grouped = groupEntriesByDate(entries)
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.background }}>
       <View style={[styles.header, { borderBottomColor: colors.border }]}>
+        <Text style={[typography.h2, { color: colors.foreground }]}>Storico</Text>
         {entries.length > 0 && (
           <Pressable onPress={handleClearAll} hitSlop={8}>
             <Trash2 size={20} color={colors.muted} />
@@ -82,10 +110,7 @@ export default function HistoryScreen() {
             Carica un contratto o una busta paga per iniziare
           </Text>
           <Pressable
-            style={[
-              styles.ctaButton,
-              { backgroundColor: colors.primary, marginTop: spacing[8] },
-            ]}
+            style={[styles.ctaButton, { backgroundColor: colors.primary, marginTop: spacing[8] }]}
             onPress={() => router.push('/upload')}
           >
             <Text style={[typography.label, { color: colors.primaryForeground }]}>
@@ -96,49 +121,64 @@ export default function HistoryScreen() {
       ) : (
         <ScrollView
           style={{ flex: 1 }}
-          contentContainerStyle={[styles.listContent, { paddingBottom: 120 }]}
+          contentContainerStyle={styles.listContent}
           showsVerticalScrollIndicator={false}
         >
-          {entries.map((entry) => (
-            <Pressable
-              key={entry.id}
-              style={[
-                styles.entryCard,
-                { backgroundColor: colors.surface, borderColor: colors.border },
-              ]}
-              onPress={() => handleOpenEntry(entry)}
-              onLongPress={() => handleDeleteEntry(entry.id)}
-            >
-              <View style={styles.entryTop}>
-                <View
+          {grouped.map(({ label, data }, groupIndex) => (
+            <View key={label}>
+              <Text
+                style={[
+                  typography.caption,
+                  styles.sectionHeader,
+                  { color: colors.muted, marginTop: groupIndex === 0 ? 16 : 20 },
+                ]}
+              >
+                {label.toUpperCase()}
+              </Text>
+              {data.map((entry) => (
+                <Pressable
+                  key={entry.id}
                   style={[
-                    styles.statusDot,
-                    { backgroundColor: getStatusColor(entry, colors) },
+                    styles.entryCard,
+                    { backgroundColor: colors.surface, borderColor: colors.border },
                   ]}
-                />
-                <Text
-                  style={[typography.label, { color: colors.foreground, flex: 1 }]}
-                  numberOfLines={1}
-                  ellipsizeMode="middle"
+                  onPress={() => handleOpenEntry(entry)}
+                  onLongPress={() => handleDeleteEntry(entry.id)}
                 >
-                  {entry.fileName}
-                </Text>
-              </View>
-              <View style={styles.entryBottom}>
-                <View style={[styles.badge, { backgroundColor: colors.primaryLight }]}>
-                  <Text style={[typography.caption, { color: colors.primary }]}>
-                    {getDocTypeLabel(entry.result.documentType)}
-                  </Text>
-                </View>
-                <Text style={[typography.caption, { color: colors.muted }]}>
-                  {formatRelativeDate(entry.createdAt)}
-                </Text>
-              </View>
-            </Pressable>
+                  <View style={styles.entryRow}>
+                    <View
+                      style={[
+                        styles.statusDot,
+                        { backgroundColor: getStatusColor(entry, colors) },
+                      ]}
+                    />
+                    <View style={{ flex: 1 }}>
+                      <Text
+                        style={[typography.label, { color: colors.foreground }]}
+                        numberOfLines={1}
+                        ellipsizeMode="middle"
+                      >
+                        {entry.fileName}
+                      </Text>
+                      <View style={styles.entryMeta}>
+                        <View style={[styles.badge, { backgroundColor: colors.primaryLight }]}>
+                          <Text style={[typography.caption, { color: colors.primary }]}>
+                            {getDocTypeLabel(entry.result.documentType)}
+                          </Text>
+                        </View>
+                        <Text style={[typography.caption, { color: colors.muted }]}>
+                          {formatRelativeDate(entry.createdAt)}
+                        </Text>
+                      </View>
+                    </View>
+                    <ChevronRight size={16} color={colors.muted} />
+                  </View>
+                </Pressable>
+              ))}
+            </View>
           ))}
         </ScrollView>
       )}
-
     </SafeAreaView>
   )
 }
@@ -150,7 +190,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingHorizontal: 24,
     paddingVertical: 16,
-    borderBottomWidth: 1,
+    borderBottomWidth: StyleSheet.hairlineWidth,
   },
   emptyState: {
     flex: 1,
@@ -165,34 +205,39 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   listContent: {
-    padding: 16,
-    gap: 12,
+    paddingHorizontal: 16,
+    paddingBottom: 120,
+  },
+  sectionHeader: {
+    letterSpacing: 0.5,
+    marginBottom: 8,
   },
   entryCard: {
-    borderRadius: 16,
+    borderRadius: 12,
     borderWidth: 1,
-    padding: 16,
-    gap: 10,
+    padding: 20,
+    marginBottom: 8,
   },
-  entryTop: {
+  entryRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 10,
+    gap: 12,
   },
   statusDot: {
-    width: 8,
-    height: 8,
-    borderRadius: 4,
+    width: 10,
+    height: 10,
+    borderRadius: 5,
     flexShrink: 0,
   },
-  entryBottom: {
+  entryMeta: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
+    gap: 8,
+    marginTop: 4,
   },
   badge: {
-    borderRadius: 8,
+    borderRadius: 6,
     paddingHorizontal: 8,
-    paddingVertical: 3,
+    paddingVertical: 4,
   },
 })
