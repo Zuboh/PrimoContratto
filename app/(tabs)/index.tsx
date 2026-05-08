@@ -34,7 +34,7 @@ function formatRelativeDate(isoString: string): string {
 }
 
 export default function HomeScreen() {
-  const { colors, typography, spacing } = useTheme()
+  const { colors, typography } = useTheme()
   const router = useRouter()
   const entries = useHistoryStore((s) => s.entries)
   const [firstName, setFirstName] = useState('utente')

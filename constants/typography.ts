@@ -8,17 +8,17 @@ export const fontFamily = {
 } as const
 
 export const fontSize = {
-  xs: 10,
-  sm: 11,
-  base: 12,
-  md: 13,
-  lg: 14,
-  xl: 16,
-  '2xl': 18,
-  '3xl': 20,
-  '4xl': 24,
-  '5xl': 26,
-  '6xl': 32,
+  xs: 12,
+  sm: 13,
+  base: 14,
+  md: 15,
+  lg: 16,
+  xl: 18,
+  '2xl': 20,
+  '3xl': 22,
+  '4xl': 26,
+  '5xl': 28,
+  '6xl': 34,
 } as const
 
 export const lineHeight = {

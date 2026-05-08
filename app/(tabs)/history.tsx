@@ -25,7 +25,7 @@ function getDocTypeLabel(type: string) {
   return 'Documento'
 }
 
-function groupEntriesByDate(entries: AnalysisEntry[]): Array<{ label: string; data: AnalysisEntry[] }> {
+function groupEntriesByDate(entries: AnalysisEntry[]): { label: string; data: AnalysisEntry[] }[] {
   const today = new Date()
   today.setHours(0, 0, 0, 0)
   const weekAgo = new Date(today)
