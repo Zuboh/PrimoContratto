@@ -25,7 +25,7 @@ export const createButtonStyles = (
       ...shadow.button,
     },
     secondary: {
-      backgroundColor: colors.background,
+      backgroundColor: colors.surface,
       borderWidth: 2,
       borderColor: colors.primary,
     },

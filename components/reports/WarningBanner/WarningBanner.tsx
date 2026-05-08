@@ -1,13 +1,14 @@
 import { useTheme } from '@/hooks/useTheme'
 import { Text, View } from 'react-native'
-import { CONFIG } from './WarningBanner.config'
+import { getConfig } from './WarningBanner.config'
 import { createStyles } from './WarningBanner.styles'
 import { WarningBannerProps } from './Warningbanner.types'
 
 export function WarningBanner({ status, style }: WarningBannerProps) {
   const theme = useTheme()
   const styles = createStyles(theme)
-  const config = CONFIG[status] ?? CONFIG['warning']
+  const configMap = getConfig(theme.colors)
+  const config = configMap[status] ?? configMap['warning']
   const Icon = config.icon
 
   return (

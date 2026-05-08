@@ -11,7 +11,7 @@ export const createCardStyles = (theme: Theme) => {
       ...shadow.sm,
     },
     default: {
-      backgroundColor: colors.background,
+      backgroundColor: colors.surface,
       borderWidth: 1,
       borderColor: colors.border,
     },
