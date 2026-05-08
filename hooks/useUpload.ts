@@ -2,7 +2,7 @@ import { useToastContext } from '@/contexts/ToastContext'
 import { useAnalysisStore } from '@/stores/analysisStore'
 import { useAuthStore } from '@/stores/authStore'
 import { useHistoryStore } from '@/stores/historyStore'
-import { setPendingUpload } from '@/stores/pendingUpload'
+import { DocumentType, setPendingUpload } from '@/stores/pendingUpload'
 import { UPLOAD } from '@/constants/config'
 import { generatePdfHash, isFileTooLarge, uriToBase64 } from '@/utils/pdf'
 import * as DocumentPicker from 'expo-document-picker'
@@ -17,7 +17,7 @@ export function useUpload() {
   const { setStep } = useAnalysisStore()
   const toast = useToastContext()
 
-  const handlePickPdf = async () => {
+  const handlePickPdf = async (documentType: DocumentType) => {
     try {
       loadingPdf.setTrue()
 
@@ -54,7 +54,7 @@ export function useUpload() {
         return
       }
 
-      setPendingUpload({ base64, hash, fileName: file.name, type: 'pdf' })
+      setPendingUpload({ base64, hash, fileName: file.name, type: 'pdf', documentType })
       console.log('3. pendingUpload settato')
 
       if (!useAuthStore.getState().canAnalyze()) {
@@ -75,7 +75,7 @@ export function useUpload() {
     }
   }
 
-  const handleCamera = async () => {
+  const handleCamera = async (documentType: DocumentType) => {
     try {
       loadingCamera.setTrue()
       Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light)
@@ -104,6 +104,7 @@ export function useUpload() {
         hash,
         fileName: 'foto_contratto.jpg',
         type: 'image',
+        documentType,
       })
 
       if (!useAuthStore.getState().canAnalyze()) {
