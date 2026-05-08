@@ -1,5 +1,4 @@
 import { GuideCard, HeroSection, TrustPills } from '@/components/home'
-import { BottomNav } from '@/components/layout/BottomNav/index'
 import { LogoWithText } from '@/components/ui/Logo/Logo'
 import { useTheme } from '@/hooks/useTheme'
 import React from 'react'
@@ -23,7 +22,6 @@ export default function HomeScreen() {
         </View>
         <TrustPills />
       </ScrollView>
-      <BottomNav />
     </SafeAreaView>
   )
 }

@@ -1,4 +1,3 @@
-import { BottomNav } from '@/components/layout/BottomNav/index'
 import { useTheme } from '@/hooks/useTheme'
 import { useAnalysisStore } from '@/stores/analysisStore'
 import { useHistoryStore } from '@/stores/historyStore'
@@ -140,7 +139,6 @@ export default function HistoryScreen() {
         </ScrollView>
       )}
 
-      <BottomNav />
     </SafeAreaView>
   )
 }

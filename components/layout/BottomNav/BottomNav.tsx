@@ -1,20 +1,22 @@
 import * as Haptics from 'expo-haptics'
-import { usePathname, useRouter } from 'expo-router'
+import { useRouter } from 'expo-router'
+import { Plus } from 'lucide-react-native'
 import React from 'react'
 import { Pressable, Text, View } from 'react-native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import { useTheme } from '@/hooks/useTheme'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { TABS } from './BottomNav.config'
 import { createStyles } from './BottomNav.styles'
-import { TabButtonProps } from './BottomNav.types'
+import { BottomNavProps, FabButtonProps, TabButtonProps } from './BottomNav.types'
 
 function TabButton({ icon: Icon, label, active, onPress }: TabButtonProps) {
   const theme = useTheme()
-  const styles = createStyles(theme)
+  const insets = useSafeAreaInsets()
+  const styles = createStyles(theme, insets.bottom)
 
   const color = active ? theme.colors.primary : theme.colors.muted
-  const strokeWidth = active ? 2.5 : 1.8
+  const fontWeight = active ? '600' : '400'
 
   return (
     <Pressable
@@ -24,43 +26,76 @@ function TabButton({ icon: Icon, label, active, onPress }: TabButtonProps) {
       accessibilityState={{ selected: active }}
       accessibilityLabel={label}
     >
-      <Icon size={22} color={color} strokeWidth={strokeWidth} />
-      <Text style={[styles.label, { color }]}>{label}</Text>
+      {active && <View style={styles.activeIndicator} />}
+      <Icon size={22} color={color} strokeWidth={active ? 2.5 : 1.8} />
+      <Text style={[styles.label, { color, fontWeight }]}>{label}</Text>
     </Pressable>
   )
 }
 
-export function BottomNav() {
+function FabButton({ onPress }: FabButtonProps) {
+  const theme = useTheme()
+  const insets = useSafeAreaInsets()
+  const styles = createStyles(theme, insets.bottom)
+
+  return (
+    <View style={styles.fabSlot}>
+      <Pressable
+        style={styles.fabButton}
+        onPress={onPress}
+        accessibilityRole="button"
+        accessibilityLabel="Carica documento"
+      >
+        <Plus size={24} color="#FFFFFF" strokeWidth={2.5} />
+      </Pressable>
+    </View>
+  )
+}
+
+export function BottomNav({ activePage, onPageChange }: BottomNavProps) {
   const theme = useTheme()
   const insets = useSafeAreaInsets()
   const styles = createStyles(theme, insets.bottom)
   const router = useRouter()
-  const pathname = usePathname()
 
-  const handlePress = (route: string) => {
+  const handleTabPress = (pageIndex: number) => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light)
-    router.push(route as any)
+    onPageChange(pageIndex)
   }
 
+  const handleFabPress = () => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium)
+    router.push('/upload')
+  }
+
+  const leftTabs = TABS.slice(0, 2)
+  const rightTabs = TABS.slice(2)
+
   return (
-    <View style={styles.container}>
-      {TABS.map(({ route, label, icon }) => (
-        <TabButton
-          key={route}
-          icon={icon}
-          label={label}
-          active={
-            route === '/'
-              ? pathname === '/' ||
-                pathname === '/upload' ||
-                pathname === '/loading' ||
-                pathname.startsWith('/report') ||
-                pathname.startsWith('/negotation')
-              : pathname === route || pathname.endsWith(route)
-          }
-          onPress={() => handlePress(route)}
-        />
-      ))}
+    <View style={styles.wrapper}>
+      <View style={styles.container}>
+        {leftTabs.map(({ label, icon, pageIndex }) => (
+          <TabButton
+            key={label}
+            icon={icon}
+            label={label}
+            active={activePage === pageIndex}
+            onPress={() => handleTabPress(pageIndex)}
+          />
+        ))}
+
+        <FabButton onPress={handleFabPress} />
+
+        {rightTabs.map(({ label, icon, pageIndex }) => (
+          <TabButton
+            key={label}
+            icon={icon}
+            label={label}
+            active={activePage === pageIndex}
+            onPress={() => handleTabPress(pageIndex)}
+          />
+        ))}
+      </View>
     </View>
   )
 }

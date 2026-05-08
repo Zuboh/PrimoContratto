@@ -1,11 +1,17 @@
 import type { LucideIcon } from 'lucide-react-native'
 
-// eslint-disable-next-line @typescript-eslint/no-empty-object-type
-export interface BottomNavProps {}
+export interface BottomNavProps {
+  activePage: number
+  onPageChange: (page: number) => void
+}
 
 export interface TabButtonProps {
   icon: LucideIcon
   label: string
   active: boolean
+  onPress: () => void
+}
+
+export interface FabButtonProps {
   onPress: () => void
 }
