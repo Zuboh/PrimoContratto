@@ -1,6 +1,7 @@
 import { useTheme } from '@/hooks/useTheme'
+import { useAuthStore } from '@/stores/authStore'
 import { router } from 'expo-router'
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import {
   Dimensions,
   FlatList,
@@ -28,6 +29,12 @@ export default function OnboardingScreen() {
   const insets = useSafeAreaInsets()
   const [activeIndex, setActiveIndex] = useState(0)
   const listRef = useRef<FlatList>(null)
+  const { isLoggedIn } = useAuthStore()
+
+  // Already logged in → skip onboarding
+  useEffect(() => {
+    if (isLoggedIn) router.replace('/(tabs)')
+  }, [])
 
   const goNext = () => {
     if (activeIndex < SLIDES.length - 1) {
