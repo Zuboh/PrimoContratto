@@ -30,10 +30,10 @@ export function WindTrail({
     if (active) {
       opacity.value = withSequence(
         withTiming(1, { duration: 120 }),
-        withDelay(900, withTiming(0, { duration: 250, easing: Easing.out(Easing.ease) })),
+        withDelay(1400, withTiming(0, { duration: 300, easing: Easing.out(Easing.ease) })),
       )
-      translateX.value = withTiming(W + 80, {
-        duration: 1200,
+      translateX.value = withTiming(W + 100, {
+        duration: 1800,
         easing: Easing.out(Easing.ease),
       })
     } else {
@@ -52,41 +52,25 @@ export function WindTrail({
       style={[
         {
           position: 'absolute',
-          top: startTop + 4,
-          left: startLeft - 60,
-          width: 130,
-          height: 40,
+          top: startTop + 6,
+          left: startLeft - 70,
+          width: 160,
+          height: 48,
           zIndex: 49,
         },
         animatedStyle,
       ]}
       pointerEvents="none"
     >
-      <Svg width={130} height={40}>
-        {/* Wind trail curves — sage color, subtle */}
+      <Svg width={160} height={48}>
+        {/* Single tight S-curl wind trail */}
         <Path
-          d="M 0,12 C 30,-5 70,20 120,8"
+          d="M 0,18 C 18,-22 52,36 88,4 C 108,-18 128,14 148,8"
           stroke="#4F6B4A"
-          strokeWidth={1.2}
+          strokeWidth={1.4}
           strokeLinecap="round"
           fill="none"
-          opacity={0.22}
-        />
-        <Path
-          d="M 0,20 C 25,5 65,28 115,16"
-          stroke="#4F6B4A"
-          strokeWidth={1.0}
-          strokeLinecap="round"
-          fill="none"
-          opacity={0.16}
-        />
-        <Path
-          d="M 0,4 C 20,-8 55,14 100,2"
-          stroke="#4F6B4A"
-          strokeWidth={0.9}
-          strokeLinecap="round"
-          fill="none"
-          opacity={0.18}
+          opacity={0.30}
         />
       </Svg>
     </Animated.View>

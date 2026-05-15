@@ -1,4 +1,4 @@
-import { Slide1, Slide2, Slide3, WindLeaf, WindTrail } from '@/components/onboarding'
+import { LeafPhase, Slide1, Slide2, Slide3, WindLeaf, WindTrail } from '@/components/onboarding'
 import { useTheme } from '@/hooks/useTheme'
 import { useAuthStore } from '@/stores/authStore'
 import { router, useLocalSearchParams } from 'expo-router'
@@ -24,14 +24,16 @@ const SLIDES = [
 
 const navigate = () => router.replace('/(auth)/login')
 
-const leafTop = H * 0.58
-const leafLeft = W * 0.15
+const TRAIL_STARTS: Record<string, { top: number; left: number }> = {
+  'flying-2': { top: H * 0.185, left: W * 0.51 },
+  'flying-3': { top: H * 0.17,  left: W * 0.78 },
+}
 
 export default function OnboardingScreen() {
   const { colors, spacing, radius } = useTheme()
   const insets = useSafeAreaInsets()
   const [activeIndex, setActiveIndex] = useState(0)
-  const [leafActive, setLeafActive] = useState(false)
+  const [leafPhase, setLeafPhase] = useState<LeafPhase>('hidden')
   const listRef = useRef<FlatList>(null)
   const { isLoggedIn } = useAuthStore()
   const { preview } = useLocalSearchParams<{ preview?: string }>()
@@ -41,12 +43,16 @@ export default function OnboardingScreen() {
   }, [])
 
   const goNext = () => {
-    if (activeIndex < SLIDES.length - 1) {
-      setLeafActive(true)
-      const next = activeIndex + 1
-      listRef.current?.scrollToIndex({ index: next, animated: true })
-      setActiveIndex(next)
+    if (activeIndex === 0) {
+      setLeafPhase('flying-2')
+      listRef.current?.scrollToIndex({ index: 1, animated: true })
+      setActiveIndex(1)
+    } else if (activeIndex === 1) {
+      setLeafPhase('flying-3')
+      listRef.current?.scrollToIndex({ index: 2, animated: true })
+      setActiveIndex(2)
     } else {
+      setLeafPhase('done')
       navigate()
     }
   }
@@ -55,6 +61,9 @@ export default function OnboardingScreen() {
     const idx = Math.round(e.nativeEvent.contentOffset.x / W)
     setActiveIndex(idx)
   }
+
+  const isFlying = leafPhase === 'flying-2' || leafPhase === 'flying-3'
+  const trailStart = TRAIL_STARTS[leafPhase] ?? TRAIL_STARTS['flying-2']
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.background }}>
@@ -86,13 +95,14 @@ export default function OnboardingScreen() {
         }}
       />
 
-      {/* Wind animation — overlays slides */}
-      <WindTrail active={leafActive} startTop={leafTop} startLeft={leafLeft} />
+      {/* Leaf animation overlay */}
+      <WindTrail active={isFlying} startTop={trailStart.top} startLeft={trailStart.left} />
       <WindLeaf
-        active={leafActive}
-        startTop={leafTop}
-        startLeft={leafLeft}
-        onFinish={() => setLeafActive(false)}
+        phase={leafPhase}
+        onLanded={() => {
+          if (leafPhase === 'flying-2') setLeafPhase('resting-2')
+          else if (leafPhase === 'flying-3') setLeafPhase('resting-3')
+        }}
       />
 
       {/* Dots + CTA */}
