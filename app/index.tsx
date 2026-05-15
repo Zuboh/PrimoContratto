@@ -136,7 +136,7 @@ function Slide1() {
       <View style={{ alignItems: 'center', paddingTop: spacing[4] }}>
         <Image
           source={require('@/assets/images/logo-wordmark.png')}
-          style={{ width: '90%', aspectRatio: 3 }}
+          style={{ width: '60%', aspectRatio: 3 }}
           resizeMode="contain"
         />
       </View>

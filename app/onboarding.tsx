@@ -91,7 +91,7 @@ function Slide1() {
   return (
     <View style={{ width: W, flex: 1, paddingHorizontal: 24 }}>
       <View style={{ alignItems: 'center', paddingTop: spacing[4] }}>
-        <Image source={require('@/assets/images/logo-wordmark.png')} style={{ width: '90%', aspectRatio: 3 }} resizeMode="contain" />
+        <Image source={require('@/assets/images/logo-wordmark.png')} style={{ width: '60%', aspectRatio: 3 }} resizeMode="contain" />
       </View>
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         <Image source={require('@/assets/images/panda-sitting.png')} style={{ width: W - 32, maxHeight: 340 }} resizeMode="contain" />
