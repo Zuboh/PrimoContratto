@@ -16,18 +16,21 @@ export const spacing = {
   16: 64,
 } as const
 
+// Primo Design System border radii
+// xs=10 sm=14 md=18 lg=24 xl=28 pill=999
 export const radius = {
-  sm: 8,
-  md: 12,
-  lg: 24,
-  xl: 28,
-  '2xl': 32,
-  full: 9999,
+  xs: 10,    // --r-xs: small components
+  sm: 14,    // --r-sm: buttons, small cards
+  md: 18,    // --r-md: groups, inputs
+  lg: 24,    // --r-lg: card default
+  xl: 28,    // --r-xl: hero card
+  '2xl': 28, // alias → xl (compat)
+  full: 9999, // --r-pill
 } as const
 
 export const shadow = {
   sm: {
-    shadowColor: 'rgba(79,121,66,1)',
+    shadowColor: '#3F5A45',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.06,
     shadowRadius: 4,
@@ -35,31 +38,31 @@ export const shadow = {
   } as ViewStyle,
 
   md: {
-    shadowColor: 'rgba(79,121,66,1)',
+    shadowColor: '#3F5A45',
     shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.1,
+    shadowOpacity: 0.10,
     shadowRadius: 8,
     elevation: 4,
   } as ViewStyle,
 
   lg: {
-    shadowColor: 'rgba(79,121,66,1)',
+    shadowColor: '#3F5A45',
     shadowOffset: { width: 0, height: 8 },
-    shadowOpacity: 0.15,
+    shadowOpacity: 0.12,
     shadowRadius: 16,
     elevation: 8,
   } as ViewStyle,
 
   button: {
-    shadowColor: 'rgba(79,121,66,1)',
+    shadowColor: '#3F5A45',
     shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.25,
+    shadowOpacity: 0.20,
     shadowRadius: 12,
     elevation: 6,
   } as ViewStyle,
 
   fab: {
-    shadowColor: 'rgba(79,121,66,1)',
+    shadowColor: '#3F5A45',
     shadowOffset: { width: 0, height: 6 },
     shadowOpacity: 0.25,
     shadowRadius: 16,

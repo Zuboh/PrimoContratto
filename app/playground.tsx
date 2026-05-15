@@ -166,7 +166,7 @@ export default function PlaygroundScreen() {
       {/* 03 · Radius */}
       <Section title="03 · Border Radius">
         <View style={{ flexDirection: 'row', alignItems: 'flex-end', gap: spacing[5], flexWrap: 'wrap' }}>
-          {([['sm', 14], ['md', 18], ['lg', 24], ['xl', 28], ['full', 999]] as [string, number][]).map(([name, val]) => (
+          {([['xs', 10], ['sm', 14], ['md', 18], ['lg', 24], ['xl', 28], ['full', 999]] as [string, number][]).map(([name, val]) => (
             <View key={name} style={{ alignItems: 'center', gap: spacing[2] }}>
               <View style={{ width: 64, height: 64, borderRadius: Math.min(val, 32), backgroundColor: colors.primaryLight, borderWidth: 1.5, borderColor: colors.primary }} />
               <Text style={{ fontSize: 11, fontFamily: 'Nunito_600SemiBold', color: colors.muted }}>{name}</Text>
