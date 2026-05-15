@@ -31,5 +31,4 @@ npx expo start
 
 ## 🎨 Design
 
-Warm cream/sage palette. Design system documented in `docs/design/Primo Design System.html`.
-Screenshots in `docs/design/screenshots/primo/`.
+Warm cream/sage palette — cream `#F5ECDC` background, sage `#4F6B4A` primary, Nunito 800 headers.
