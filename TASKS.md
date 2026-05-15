@@ -45,6 +45,13 @@
 - [ ] **Login** — match Design System §16.7; form card, fields with icons, 'Accedi' pill CTA, Google button
 - [ ] **Register** — match Design System §16.7; form card, live password helper, terms checkbox, 'Registrati' CTA
 
+### Design System Components to Build
+- [ ] **TextField component** — label + icon + helper text + error state; Design System §16.1
+- [ ] **BottomSheet component** — 5 variants (default, confirm, destructive, info, loading); Design System §14
+- [ ] **EmptyState component** — IllustrationPlaceholder + title + body + CTA button; Design System §12
+- [ ] **Checkbox + Radio** — form controls; Design System §16.4
+- [ ] **FormField wrapper** — label + input + helper; Design System §16.5
+
 ### Cleanup
 - [x] **Remove Negoziazione screen** — deleted `app/negotation/[id].tsx`, removed Stack.Screen and BottomNav pathname ref
 - [x] **Remove unused files** — deleted GradientText, Toggle, HeroSection, TrustPills, storage.ts, useDebounce, useMinimumLoading, empty AanalysisChips.tsx

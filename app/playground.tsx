@@ -1,366 +1,322 @@
-import {
-  ClauseList,
-  MissingClausesCard,
-  SummaryCard,
-  WarningBanner,
-} from '@/components/reports'
-import { AnomaliesCard } from '@/components/reports/AnomaliesCard/AnomaliesCard'
-import { PayslipHeader } from '@/components/reports/PayslipHeader/PayslipHeader'
-import { PayslipItems } from '@/components/reports/PayslipItems/PayslipItems'
-import { ScoreBar } from '@/components/reports/ScoreBar/ScoreBar'
-import { Badge, Button, Card } from '@/components/ui'
+import { Badge } from '@/components/ui/Badge'
+import { Button } from '@/components/ui/Button'
+import { Card } from '@/components/ui/Card'
+import { IllustrationPlaceholder } from '@/components/ui/IllustrationPlaceholder'
 import { Logo, LogoWithText } from '@/components/ui/Logo/Logo'
-import { colors } from '@/constants/colors'
+import { Skeleton, SkeletonRow } from '@/components/ui/Skeleton/Skeleton'
+import { Spinner } from '@/components/ui/Spinner'
 import { useToastContext } from '@/contexts/ToastContext'
 import { useTheme } from '@/hooks/useTheme'
-import { useHistoryStore } from '@/stores'
-import { ContractResult, PayslipResult } from '@/types'
-import { AlertTriangle, CheckCircle } from 'lucide-react-native'
-import React, { useState } from 'react'
-import { ScrollView, StyleSheet, Text, View } from 'react-native'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { Redirect } from 'expo-router'
+import React from 'react'
+import { Platform, ScrollView, Text, View } from 'react-native'
 
-// ─── Mock data ───────────────────────────────────────────────────────────────
+// ─── Helpers ──────────────────────────────────────────────────────────────────
 
-const MOCK_CONTRACT: ContractResult = {
-  documentType: 'contract',
-  contractType: 'Tempo Determinato',
-  ccnl: 'CCNL Metalmeccanico Industria Liv. 3',
-  globalStatus: 'critical',
-  summary:
-    'Il contratto presenta alcune criticità importanti. Il periodo di prova supera il massimo consentito dal CCNL e la clausola di non concorrenza è molto ampia senza un compenso adeguato. La retribuzione è nella norma. Leggi con attenzione prima di firmare.',
-  clauses: [
-    {
-      id: '1',
-      title: 'Durata e tipo contratto',
-      summary:
-        'Contratto a tempo determinato di 12 mesi con possibilità di proroga.',
-      detail:
-        'Il contratto ha durata di 12 mesi a partire dal 01/04/2025. È ammessa una proroga fino a un massimo di 24 mesi complessivi ai sensi del D.Lgs. 81/2015.',
-      status: 'green',
-    },
-    {
-      id: '2',
-      title: 'Periodo di prova',
-      summary: 'Periodo di prova di 6 mesi: supera il massimo CCNL.',
-      detail:
-        'Il contratto prevede un periodo di prova di 6 mesi. Il CCNL Metalmeccanico per il 3° livello prevede un massimo di 3 mesi. Il periodo è il doppio di quello consentito ed è nullo per la parte eccedente.',
-      status: 'red',
-    },
-    {
-      id: '3',
-      title: 'Retribuzione',
-      summary:
-        'Stipendio mensile di €1.750 lordi, in linea con i minimi tabellari.',
-      detail:
-        'La retribuzione lorda mensile è di €1.750,00. Il minimo tabellare CCNL è di €1.698,00. Lo stipendio proposto è superiore al minimo di circa €52.',
-      status: 'green',
-    },
-    {
-      id: '4',
-      title: 'Orario di lavoro',
-      summary: '40 ore settimanali su 5 giorni, nella norma.',
-      detail:
-        "L'orario di lavoro è di 40 ore settimanali distribuite su 5 giorni (lunedì-venerdì). In linea con il CCNL.",
-      status: 'green',
-    },
-    {
-      id: '5',
-      title: 'Clausola di non concorrenza',
-      summary:
-        'Divieto di lavorare nel settore per 2 anni: compenso inadeguato.',
-      detail:
-        'La clausola vieta attività in aziende concorrenti per 24 mesi su tutto il territorio nazionale. Il compenso previsto è di soli €500 una tantum, del tutto sproporzionato.',
-      status: 'red',
-    },
-    {
-      id: '6',
-      title: 'Luogo di lavoro e trasferte',
-      summary:
-        'Sede fissa con possibilità di trasferte non specificate: da verificare.',
-      detail:
-        'Il contratto prevede trasferte su tutto il territorio nazionale senza specificare rimborso o indennità. Il CCNL prevede il rimborso delle spese documentate.',
-      status: 'yellow',
-    },
-  ],
-  missingClauses: [
-    {
-      id: '1',
-      title: 'Patto di stabilità',
-      description:
-        'Il contratto non menziona alcun patto di stabilità. Il datore può recedere liberamente durante il periodo di prova senza motivazione.',
-    },
-    {
-      id: '2',
-      title: 'Modalità di rimborso trasferte',
-      description:
-        'Non sono specificate le modalità di rimborso per le trasferte previste. Potresti sostenere spese non rimborsate.',
-    },
-  ],
+function Section({ title, children }: { title: string; children: React.ReactNode }) {
+  const { colors, spacing } = useTheme()
+  return (
+    <View style={{ marginBottom: spacing[10] }}>
+      <Text style={{ fontSize: 11, fontFamily: 'Nunito_700Bold', letterSpacing: 1.2, textTransform: 'uppercase', color: colors.muted, marginBottom: spacing[4] }}>
+        {title}
+      </Text>
+      <View style={{ height: 1, backgroundColor: colors.border, marginBottom: spacing[5] }} />
+      {children}
+    </View>
+  )
 }
 
-const MOCK_PAYSLIP: PayslipResult = {
-  documentType: 'payslip',
-  period: 'Marzo 2025',
-  ccnl: 'CCNL Commercio Terziario',
-  globalStatus: 'warning',
-  summary:
-    'La busta paga presenta alcune voci da verificare. Lo stipendio base è in linea con i minimi CCNL, ma sono stati rilevati straordinari non maggiorati correttamente.',
-  grossSalary: '€2.100,00',
-  netSalary: '€1.560,00',
-  items: [
-    {
-      id: '1',
-      label: 'Stipendio base',
-      value: '€1.800,00',
-      note: 'Retribuzione base mensile in linea con i minimi tabellari CCNL Commercio 3° livello.',
-      status: 'green',
-    },
-    {
-      id: '2',
-      label: 'Straordinari (8 ore)',
-      value: '€120,00',
-      note: 'Maggiorazione applicata 15%, ma il CCNL prevede il 25% per ore feriali. Potrebbero mancarti circa €13.',
-      status: 'yellow',
-    },
-    {
-      id: '3',
-      label: 'Rateo tredicesima',
-      value: '€175,00',
-      note: 'Quota mensile della tredicesima mensilità accantonata. Importo corretto.',
-      status: 'green',
-    },
-    {
-      id: '4',
-      label: 'TFR accantonato',
-      value: '€121,00',
-      note: 'Trattamento di Fine Rapporto maturato questo mese. Circa 6,91% della retribuzione utile. Nella norma.',
-      status: 'green',
-    },
-    {
-      id: '5',
-      label: 'Trattenuta IRPEF',
-      value: '€380,00',
-      note: 'Sembra leggermente alta. Verifica se hai comunicato al datore le detrazioni per lavoro dipendente.',
-      status: 'yellow',
-    },
-    {
-      id: '6',
-      label: 'Contributi INPS lavoratore',
-      value: '€189,00',
-      note: 'Aliquota 9,19%. Importo corretto.',
-      status: 'green',
-    },
-  ],
-  anomalies: [
-    {
-      id: '1',
-      title: 'Straordinari non maggiorati correttamente',
-      description:
-        'Le 8 ore di straordinario feriale sono state retribuite con una maggiorazione del 15%, mentre il CCNL Commercio prevede il 25%. La differenza stimata è di circa €13,00 a tuo favore.',
-    },
-  ],
+function Row({ label, children }: { label: string; children: React.ReactNode }) {
+  const { colors, spacing } = useTheme()
+  return (
+    <View style={{ flexDirection: 'row', alignItems: 'center', paddingVertical: spacing[3], borderBottomWidth: 1, borderBottomColor: colors.border, gap: spacing[4], flexWrap: 'wrap' }}>
+      <Text style={{ fontSize: 12, fontFamily: 'Nunito_600SemiBold', color: colors.muted, width: 100, flexShrink: 0 }}>
+        {label}
+      </Text>
+      <View style={{ flexDirection: 'row', alignItems: 'center', gap: spacing[3], flexWrap: 'wrap', flex: 1 }}>
+        {children}
+      </View>
+    </View>
+  )
 }
 
-// ─── Component ───────────────────────────────────────────────────────────────
+function ComingSoon({ title, spec }: { title: string; spec: string }) {
+  const { colors, spacing, radius } = useTheme()
+  return (
+    <View style={{ backgroundColor: colors.surfaceAlt, borderRadius: radius.lg, padding: spacing[4], borderWidth: 1.5, borderColor: colors.border, borderStyle: 'dashed', flexDirection: 'row', alignItems: 'center', gap: spacing[3] }}>
+      <Text style={{ fontSize: 22 }}>🔧</Text>
+      <View>
+        <Text style={{ fontSize: 14, fontFamily: 'Nunito_700Bold', color: colors.foreground }}>{title}</Text>
+        <Text style={{ fontSize: 12, fontFamily: 'Nunito_400Regular', color: colors.muted, marginTop: 2 }}>
+          In costruzione · Design System {spec}
+        </Text>
+      </View>
+    </View>
+  )
+}
 
-export default function Playground() {
-  const { spacing } = useTheme()
-  const insets = useSafeAreaInsets()
+function Swatch({ name, hex }: { name: string; hex: string }) {
+  const { colors } = useTheme()
+  return (
+    <View style={{ alignItems: 'center', width: 80, marginBottom: 16 }}>
+      <View style={{ width: 52, height: 52, borderRadius: 12, backgroundColor: hex, borderWidth: 1, borderColor: colors.border, marginBottom: 6 }} />
+      <Text style={{ fontSize: 10, fontFamily: 'Nunito_600SemiBold', color: colors.foreground, textAlign: 'center' }}>{name}</Text>
+      <Text style={{ fontSize: 9, fontFamily: 'Nunito_400Regular', color: colors.muted, textAlign: 'center' }}>{hex}</Text>
+    </View>
+  )
+}
+
+function SwatchGroup({ title, swatches }: { title: string; swatches: { name: string; hex: string }[] }) {
+  const { colors, spacing } = useTheme()
+  return (
+    <View style={{ marginBottom: spacing[5] }}>
+      <Text style={{ fontSize: 11, fontFamily: 'Nunito_700Bold', color: colors.muted, marginBottom: spacing[3] }}>{title}</Text>
+      <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
+        {swatches.map((s) => <Swatch key={s.name} {...s} />)}
+      </View>
+    </View>
+  )
+}
+
+// ─── Screen ───────────────────────────────────────────────────────────────────
+
+export default function PlaygroundScreen() {
+  const { colors, spacing, radius, shadow } = useTheme()
   const toast = useToastContext()
-  const { clearHistory } = useHistoryStore()
-  const [showContract, setShowContract] = useState(true)
 
-  if (!__DEV__) return null
-
-  const activeAnalysis = showContract ? MOCK_CONTRACT : MOCK_PAYSLIP
+  if (Platform.OS !== 'web') return <Redirect href="/(tabs)" />
 
   return (
-    <View style={{ flex: 1, paddingTop: insets.top }}>
-      <ScrollView
-        contentContainerStyle={{
-          padding: spacing[6],
-          gap: spacing[8],
-        }}
-      >
-        {/* ── UI Components ── */}
-        <Section title="Logo">
-          <LogoWithText size={44} />
-          <LogoWithText size={36} />
+    <ScrollView
+      style={{ flex: 1, backgroundColor: colors.background }}
+      contentContainerStyle={{ maxWidth: 900, width: '100%', alignSelf: 'center', paddingHorizontal: 48, paddingTop: 64, paddingBottom: 80 }}
+      showsVerticalScrollIndicator={false}
+    >
+      {/* Header */}
+      <View style={{ marginBottom: spacing[10] }}>
+        <LogoWithText size={32} style={{ marginBottom: spacing[5] }} />
+        <Text style={{ fontSize: 36, fontFamily: 'Nunito_800ExtraBold', color: colors.foreground, letterSpacing: -0.5 }}>
+          Design System
+        </Text>
+        <Text style={{ fontSize: 16, fontFamily: 'Nunito_400Regular', color: colors.muted, marginTop: 6 }}>
+          Componenti, tokens e pattern dell'app Primo.
+        </Text>
+        <View style={{ height: 1, backgroundColor: colors.border, marginTop: spacing[6] }} />
+      </View>
+
+      {/* 01 · Colors */}
+      <Section title="01 · Colors">
+        <SwatchGroup title="Brand" swatches={[
+          { name: 'primary', hex: '#4F6B4A' },
+          { name: 'primaryDark', hex: '#3F5A45' },
+          { name: 'primaryLight', hex: '#D4E8CF' },
+          { name: 'primaryForeground', hex: '#FFFFFF' },
+        ]} />
+        <SwatchGroup title="Backgrounds" swatches={[
+          { name: 'background', hex: '#F5ECDC' },
+          { name: 'surface', hex: '#FFF5E8' },
+          { name: 'surfaceAlt', hex: '#FAF0E2' },
+        ]} />
+        <SwatchGroup title="Text" swatches={[
+          { name: 'foreground', hex: '#2B1F0E' },
+          { name: 'muted', hex: '#8C7358' },
+          { name: 'placeholder', hex: '#B09575' },
+        ]} />
+        <SwatchGroup title="Borders" swatches={[
+          { name: 'border', hex: '#EDE3D5' },
+          { name: 'borderStrong', hex: '#D4C4B0' },
+        ]} />
+        <SwatchGroup title="Status" swatches={[
+          { name: 'success', hex: '#2E7D32' },
+          { name: 'successLight', hex: '#F1F8E9' },
+          { name: 'warning', hex: '#E65100' },
+          { name: 'warningLight', hex: '#FFF3E0' },
+          { name: 'destructive', hex: '#C62828' },
+          { name: 'destructiveLight', hex: '#FFEBEE' },
+        ]} />
+        <SwatchGroup title="Gray Scale" swatches={[
+          { name: 'gray50', hex: '#FAF5EE' },
+          { name: 'gray200', hex: '#EAD9C8' },
+          { name: 'gray400', hex: '#B89880' },
+          { name: 'gray600', hex: '#6B5540' },
+          { name: 'gray800', hex: '#362A1E' },
+          { name: 'gray900', hex: '#1E170F' },
+        ]} />
+      </Section>
+
+      {/* 02 · Typography */}
+      <Section title="02 · Typography">
+        {([
+          ['h1', 'h1', { fontSize: 30, fontFamily: 'Nunito_800ExtraBold', letterSpacing: -0.45, lineHeight: 36 }],
+          ['h2', 'h2', { fontSize: 22, fontFamily: 'Nunito_800ExtraBold', letterSpacing: -0.22, lineHeight: 28 }],
+          ['h3', 'h3', { fontSize: 18, fontFamily: 'Nunito_700Bold', lineHeight: 24 }],
+          ['h4', 'h4', { fontSize: 16, fontFamily: 'Nunito_700Bold', lineHeight: 22 }],
+          ['body', 'body', { fontSize: 16, fontFamily: 'Nunito_400Regular', lineHeight: 24 }],
+          ['body2', 'body2', { fontSize: 14, fontFamily: 'Nunito_400Regular', lineHeight: 20 }],
+          ['label', 'label', { fontSize: 16, fontFamily: 'Nunito_600SemiBold', lineHeight: 22 }],
+          ['labelSm', 'labelSm', { fontSize: 14, fontFamily: 'Nunito_600SemiBold', lineHeight: 20 }],
+          ['caption', 'caption', { fontSize: 12, fontFamily: 'Nunito_700Bold', letterSpacing: 0.8, textTransform: 'uppercase' as const }],
+          ['overline', 'overline', { fontSize: 11, fontFamily: 'Nunito_600SemiBold', letterSpacing: 0.8, textTransform: 'uppercase' as const }],
+          ['brand', 'brand', { fontSize: 26, fontFamily: 'Nunito_800ExtraBold', letterSpacing: -0.26 }],
+          ['number', 'number (Inter)', { fontSize: 38, fontFamily: 'Inter_700Bold', letterSpacing: -0.76, lineHeight: 44 }],
+          ['numberSm', 'numberSm (Inter)', { fontSize: 24, fontFamily: 'Inter_600SemiBold', letterSpacing: -0.48, lineHeight: 30 }],
+        ] as [string, string, object][]).map(([key, label, style]) => (
+          <View key={key} style={{ flexDirection: 'row', alignItems: 'baseline', paddingVertical: spacing[3], borderBottomWidth: 1, borderBottomColor: colors.border, gap: spacing[5] }}>
+            <Text style={{ fontSize: 11, fontFamily: 'Nunito_600SemiBold', color: colors.muted, width: 140, flexShrink: 0 }}>{label}</Text>
+            <Text style={[{ color: colors.foreground, flex: 1 }, style]}>Il tuo stipendio, spiegato bene.</Text>
+          </View>
+        ))}
+      </Section>
+
+      {/* 03 · Radius */}
+      <Section title="03 · Border Radius">
+        <View style={{ flexDirection: 'row', alignItems: 'flex-end', gap: spacing[5], flexWrap: 'wrap' }}>
+          {([['sm', 14], ['md', 18], ['lg', 24], ['xl', 28], ['full', 999]] as [string, number][]).map(([name, val]) => (
+            <View key={name} style={{ alignItems: 'center', gap: spacing[2] }}>
+              <View style={{ width: 64, height: 64, borderRadius: Math.min(val, 32), backgroundColor: colors.primaryLight, borderWidth: 1.5, borderColor: colors.primary }} />
+              <Text style={{ fontSize: 11, fontFamily: 'Nunito_600SemiBold', color: colors.muted }}>{name}</Text>
+              <Text style={{ fontSize: 10, fontFamily: 'Nunito_400Regular', color: colors.muted }}>{val >= 999 ? 'pill' : `${val}px`}</Text>
+            </View>
+          ))}
+        </View>
+      </Section>
+
+      {/* 04 · Shadows */}
+      <Section title="04 · Shadows">
+        <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: spacing[5] }}>
+          {(['sm', 'md', 'lg', 'button', 'fab'] as const).map((key) => (
+            <View key={key} style={[{ width: 110, height: 72, borderRadius: radius.lg, backgroundColor: colors.surface, alignItems: 'center', justifyContent: 'center' }, shadow[key]]}>
+              <Text style={{ fontSize: 11, fontFamily: 'Nunito_700Bold', color: colors.muted }}>shadow.{key}</Text>
+            </View>
+          ))}
+        </View>
+      </Section>
+
+      {/* 05 · Logo */}
+      <Section title="05 · Logo">
+        <Row label="Logo">
+          <Logo size={24} />
+          <Logo size={36} />
+          <Logo size={48} />
+          <Logo size={64} />
+        </Row>
+        <Row label="LogoWithText">
+          <LogoWithText size={20} />
           <LogoWithText size={28} />
-          <View style={{ flexDirection: 'row', gap: 12 }}>
-            <Logo size={56} />
-            <Logo size={44} />
-            <Logo size={36} />
-            <Logo size={28} />
-            <Logo size={22} />
-          </View>
-        </Section>
+          <LogoWithText size={36} />
+        </Row>
+      </Section>
 
-        <Section title="Buttons">
-          <Button label="Primary" onPress={() => {}} />
-          <Button label="Secondary" variant="secondary" onPress={() => {}} />
-          <Button label="Ghost" variant="ghost" onPress={() => {}} />
-          <Button label="Loading" loading onPress={() => {}} />
-          <Button label="Disabled" disabled onPress={() => {}} />
-          <Button label="Auto width" fullWidth={false} onPress={() => {}} />
-        </Section>
+      {/* 06 · Illustration */}
+      <Section title="06 · Illustration Placeholder">
+        <View style={{ flexDirection: 'row', alignItems: 'flex-end', gap: spacing[6] }}>
+          {([['sm', 80], ['md', 140], ['lg', 200]] as [any, number][]).map(([size, px]) => (
+            <View key={size} style={{ alignItems: 'center', gap: spacing[2] }}>
+              <IllustrationPlaceholder size={size} />
+              <Text style={{ fontSize: 11, fontFamily: 'Nunito_600SemiBold', color: colors.muted }}>{size} · {px}px</Text>
+            </View>
+          ))}
+        </View>
+      </Section>
 
-        <Section title="Cards">
-          <Card>
-            <Text>Default Card</Text>
-          </Card>
-          <Card variant="surface">
-            <Text>Surface Card</Text>
-          </Card>
-          <Card variant="warning">
-            <Text>Warning Card</Text>
-          </Card>
-          <Card variant="success">
-            <Text>Success Card</Text>
-          </Card>
-          <Card variant="error">
-            <Text>Error Card</Text>
-          </Card>
-          <Card loading />
-        </Section>
+      {/* 07 · Buttons */}
+      <Section title="07 · Buttons">
+        <Row label="Variants">
+          <Button label="Primary" onPress={() => {}} fullWidth={false} />
+          <Button label="Secondary" variant="secondary" onPress={() => {}} fullWidth={false} />
+          <Button label="Ghost" variant="ghost" onPress={() => {}} fullWidth={false} />
+        </Row>
+        <Row label="States">
+          <Button label="Loading" onPress={() => {}} loading fullWidth={false} />
+          <Button label="Disabled" onPress={() => {}} disabled fullWidth={false} />
+        </Row>
+        <Row label="Full width">
+          <Button label="Full width primary" onPress={() => {}} />
+        </Row>
+      </Section>
 
-        <Section title="Badges">
-          <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
-            <Badge label="Tempo Determinato" />
-            <Badge
-              label="OK"
-              variant="success"
-              icon={<CheckCircle size={12} color={colors.success} />}
-            />
-            <Badge
-              label="2 clausole"
-              variant="warning"
-              icon={<AlertTriangle size={12} color={colors.warning} />}
-            />
-            <Badge label="Non concorrenza" variant="error" />
-            <Badge loading label="" />
-          </View>
-        </Section>
+      {/* 08 · Badges */}
+      <Section title="08 · Badges">
+        <Row label="Variants">
+          <Badge label="Default" />
+          <Badge label="Success" variant="success" />
+          <Badge label="Warning" variant="warning" />
+          <Badge label="Error" variant="error" />
+        </Row>
+        <Row label="Loading">
+          <Badge label="Loading" loading />
+        </Row>
+      </Section>
 
-        <Section title="Toast">
-          <Button
-            label="Error"
-            onPress={() => toast.error('File troppo grande. Massimo 10MB.')}
-          />
-          <Button
-            label="Success"
-            variant="secondary"
-            onPress={() => toast.success('Analisi completata!')}
-          />
-          <Button
-            label="Warning"
-            variant="secondary"
-            onPress={() => toast.warning('Connessione lenta, riprova.')}
-          />
-          <Button
-            label="Info"
-            variant="ghost"
-            onPress={() => toast.info('Contratto già analizzato.')}
-          />
-        </Section>
+      {/* 09 · Cards */}
+      <Section title="09 · Cards">
+        <View style={{ gap: spacing[3] }}>
+          {(['default', 'surface', 'success', 'warning', 'error'] as const).map((variant) => (
+            <Card key={variant} variant={variant}>
+              <Text style={{ fontSize: 14, fontFamily: 'Nunito_700Bold', color: colors.foreground, marginBottom: 4 }}>Card · {variant}</Text>
+              <Text style={{ fontSize: 13, fontFamily: 'Nunito_400Regular', color: colors.muted }}>Il tuo stipendio, spiegato bene.</Text>
+            </Card>
+          ))}
+          <Card loading><Text>Loading</Text></Card>
+        </View>
+      </Section>
 
-        {/* ── Report Components ── */}
-        <Section title="Report — toggle">
-          <View style={{ flexDirection: 'row', gap: spacing[3] }}>
-            <Button
-              label="Contratto"
-              variant={showContract ? 'primary' : 'secondary'}
-              fullWidth={false}
-              onPress={() => setShowContract(true)}
-            />
-            <Button
-              label="Busta Paga"
-              variant={!showContract ? 'primary' : 'secondary'}
-              fullWidth={false}
-              onPress={() => setShowContract(false)}
-            />
-          </View>
-        </Section>
+      {/* 10 · Skeleton */}
+      <Section title="10 · Skeleton">
+        <View style={{ gap: spacing[4] }}>
+          <SkeletonRow gap={12}>
+            <Skeleton width={40} height={40} borderRadius={20} />
+            <View style={{ gap: 8, flex: 1 }}>
+              <Skeleton width="70%" height={14} />
+              <Skeleton width="40%" height={12} />
+            </View>
+          </SkeletonRow>
+          <Skeleton width="100%" height={80} />
+          <SkeletonRow gap={12}>
+            <Skeleton width="30%" height={20} />
+            <Skeleton width="30%" height={20} />
+            <Skeleton width="30%" height={20} />
+          </SkeletonRow>
+        </View>
+      </Section>
 
-        <Section title="WarningBanner">
-          <WarningBanner status="positive" />
-          <WarningBanner status="warning" />
-          <WarningBanner status="critical" />
-        </Section>
+      {/* 11 · Spinner */}
+      <Section title="11 · Spinner">
+        <Row label="Sizes">
+          {([16, 24, 32] as const).map((sz) => (
+            <View key={sz} style={{ alignItems: 'center', gap: 6 }}>
+              <Spinner size={sz} />
+              <Text style={{ fontSize: 10, fontFamily: 'Nunito_400Regular', color: colors.muted }}>{sz}px</Text>
+            </View>
+          ))}
+        </Row>
+        <Row label="Colors">
+          <Spinner size={24} color={colors.primary} />
+          <Spinner size={24} color={colors.success} />
+          <Spinner size={24} color={colors.warning} />
+          <Spinner size={24} color={colors.destructive} />
+        </Row>
+      </Section>
 
-        <Section title="ScoreBar">
-          <ScoreBar analysis={MOCK_CONTRACT} />
-          <ScoreBar analysis={MOCK_PAYSLIP} />
-        </Section>
+      {/* 12 · Toast */}
+      <Section title="12 · Toast">
+        <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: spacing[3] }}>
+          <Button label="✓ Success" variant="secondary" onPress={() => toast.success('Analisi completata!')} fullWidth={false} />
+          <Button label="✕ Error" variant="secondary" onPress={() => toast.error('Errore nel caricamento.')} fullWidth={false} />
+          <Button label="⚠ Warning" variant="secondary" onPress={() => toast.warning('Controlla il cedolino.')} fullWidth={false} />
+          <Button label="ℹ Info" variant="secondary" onPress={() => toast.info('Nuovo cedolino disponibile.')} fullWidth={false} />
+        </View>
+      </Section>
 
-        <Section
-          title={`Report Preview — ${showContract ? 'Contratto' : 'Busta Paga'}`}
-        >
-          <WarningBanner status={activeAnalysis.globalStatus} />
-          <ScoreBar
-            analysis={activeAnalysis}
-            style={{ marginTop: spacing[3] }}
-          />
-          <SummaryCard
-            summary={activeAnalysis.summary}
-            style={{ marginTop: spacing[3] }}
-          />
-
-          {showContract && (
-            <>
-              <ClauseList
-                clauses={(activeAnalysis as ContractResult).clauses}
-              />
-              <MissingClausesCard
-                clauses={(activeAnalysis as ContractResult).missingClauses}
-                style={{ marginTop: spacing[4] }}
-              />
-            </>
-          )}
-
-          {!showContract && (
-            <>
-              <PayslipHeader
-                grossSalary={(activeAnalysis as PayslipResult).grossSalary}
-                netSalary={(activeAnalysis as PayslipResult).netSalary}
-                ccnl={(activeAnalysis as PayslipResult).ccnl}
-                style={{ marginTop: spacing[3] }}
-              />
-              <PayslipItems items={(activeAnalysis as PayslipResult).items} />
-              <AnomaliesCard
-                anomalies={(activeAnalysis as PayslipResult).anomalies}
-                style={{ marginTop: spacing[4] }}
-              />
-            </>
-          )}
-        </Section>
-
-        <Button label="Clear History" onPress={clearHistory} />
-      </ScrollView>
-    </View>
+      {/* In Costruzione */}
+      <Section title="In Costruzione 🔧">
+        <View style={{ gap: spacing[3] }}>
+          <ComingSoon title="Form Inputs — TextField, Select, Textarea" spec="§16" />
+          <ComingSoon title="Bottom Sheet / Modal" spec="§14" />
+          <ComingSoon title="Empty State" spec="§12" />
+          <ComingSoon title="Checkbox · Radio · Toggle" spec="§16.4" />
+        </View>
+      </Section>
+    </ScrollView>
   )
 }
-
-function Section({
-  title,
-  children,
-}: {
-  title: string
-  children: React.ReactNode
-}) {
-  const { spacing, typography } = useTheme()
-  return (
-    <View style={{ gap: spacing[4], width: 300 }}>
-      <Text style={[typography.h2, styles.sectionTitle]}>{title}</Text>
-      <View style={{ gap: spacing[3] }}>{children}</View>
-    </View>
-  )
-}
-
-const styles = StyleSheet.create({
-  sectionTitle: {
-    fontWeight: '600',
-    lineHeight: 32,
-  },
-})
