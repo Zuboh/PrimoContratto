@@ -1,4 +1,4 @@
-import { Slide1, Slide2, Slide3 } from '@/components/onboarding'
+import { Slide1, Slide2, Slide3, WindLeaf, WindTrail } from '@/components/onboarding'
 import { useTheme } from '@/hooks/useTheme'
 import { useAuthStore } from '@/stores/authStore'
 import { router, useLocalSearchParams } from 'expo-router'
@@ -14,7 +14,7 @@ import {
 } from 'react-native'
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
 
-const { width: W } = Dimensions.get('window')
+const { width: W, height: H } = Dimensions.get('window')
 
 const SLIDES = [
   { id: '1', type: 'brand' as const },
@@ -24,10 +24,14 @@ const SLIDES = [
 
 const navigate = () => router.replace('/(auth)/login')
 
+const leafTop = H * 0.58
+const leafLeft = W * 0.15
+
 export default function OnboardingScreen() {
   const { colors, spacing, radius } = useTheme()
   const insets = useSafeAreaInsets()
   const [activeIndex, setActiveIndex] = useState(0)
+  const [leafActive, setLeafActive] = useState(false)
   const listRef = useRef<FlatList>(null)
   const { isLoggedIn } = useAuthStore()
   const { preview } = useLocalSearchParams<{ preview?: string }>()
@@ -38,6 +42,7 @@ export default function OnboardingScreen() {
 
   const goNext = () => {
     if (activeIndex < SLIDES.length - 1) {
+      setLeafActive(true)
       const next = activeIndex + 1
       listRef.current?.scrollToIndex({ index: next, animated: true })
       setActiveIndex(next)
@@ -79,6 +84,15 @@ export default function OnboardingScreen() {
           if (item.type === 'feature') return <Slide2 />
           return <Slide3 />
         }}
+      />
+
+      {/* Wind animation — overlays slides */}
+      <WindTrail active={leafActive} startTop={leafTop} startLeft={leafLeft} />
+      <WindLeaf
+        active={leafActive}
+        startTop={leafTop}
+        startLeft={leafLeft}
+        onFinish={() => setLeafActive(false)}
       />
 
       {/* Dots + CTA */}

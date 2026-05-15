@@ -1,4 +1,4 @@
-import { Slide1, Slide2, Slide3 } from '@/components/onboarding'
+import { Slide1, Slide2, Slide3, WindLeaf, WindTrail } from '@/components/onboarding'
 import { useTheme } from '@/hooks/useTheme'
 import { router } from 'expo-router'
 import React, { useRef, useState } from 'react'
@@ -13,7 +13,7 @@ import {
 } from 'react-native'
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
 
-const { width: W } = Dimensions.get('window')
+const { width: W, height: H } = Dimensions.get('window')
 
 const SLIDES = [
   { id: '1', type: 'brand' as const },
@@ -21,16 +21,21 @@ const SLIDES = [
   { id: '3', type: 'closer' as const },
 ]
 
+const leafTop = H * 0.58
+const leafLeft = W * 0.15
+
 export default function OnboardingPreview() {
   const { colors, spacing, radius } = useTheme()
   const insets = useSafeAreaInsets()
   const [activeIndex, setActiveIndex] = useState(0)
+  const [leafActive, setLeafActive] = useState(false)
   const listRef = useRef<FlatList>(null)
 
   const dismiss = () => router.back()
 
   const goNext = () => {
     if (activeIndex < SLIDES.length - 1) {
+      setLeafActive(true)
       const next = activeIndex + 1
       listRef.current?.scrollToIndex({ index: next, animated: true })
       setActiveIndex(next)
@@ -72,6 +77,15 @@ export default function OnboardingPreview() {
           if (item.type === 'feature') return <Slide2 />
           return <Slide3 />
         }}
+      />
+
+      {/* Wind animation — above FlatList, below controls */}
+      <WindTrail active={leafActive} startTop={leafTop} startLeft={leafLeft} />
+      <WindLeaf
+        active={leafActive}
+        startTop={leafTop}
+        startLeft={leafLeft}
+        onFinish={() => setLeafActive(false)}
       />
 
       {/* Dots + CTA */}
