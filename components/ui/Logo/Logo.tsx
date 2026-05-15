@@ -1,24 +1,32 @@
-import LogoSvg from '@/assets/images/icon.svg'
 import { useTheme } from '@/hooks/useTheme'
 import React from 'react'
-import { Text, View } from 'react-native'
+import { Image, View, Text } from 'react-native'
 import { LogoProps, LogoWithTextProps } from './Logo.types'
 
+const logoSource = require('@/assets/images/logo.png')
+
 export function Logo({ size = 36 }: LogoProps) {
-  return <LogoSvg width={size} height={size} />
+  return (
+    <Image
+      source={logoSource}
+      style={{ width: size, height: size }}
+      resizeMode="contain"
+    />
+  )
 }
 
 export function LogoWithText({ size = 36, style }: LogoWithTextProps) {
-  const theme = useTheme()
+  const { colors, fontFamily } = useTheme()
 
   return (
-    <View style={[{ flexDirection: 'row', alignItems: 'center', gap: 8 }, style]}>
+    <View style={[{ flexDirection: 'row', alignItems: 'center', gap: 6 }, style]}>
       <Logo size={size} />
       <Text
         style={{
-          fontFamily: theme.fontFamily.extraBold,
+          fontFamily: fontFamily.extraBold,
           fontSize: size * 0.6,
-          color: theme.colors.foreground,
+          color: colors.foreground,
+          letterSpacing: -0.3,
         }}
       >
         Primo
