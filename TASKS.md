@@ -62,5 +62,6 @@
 
 ## Done
 
+- [x] **Align typography tokens to Design System HTML** — h1→30px/800, h2→22px/800, h3→18px, body→16px, caption→bold uppercase, add display+number styles
 - [x] **Align color tokens to Design System HTML** — replace all colors in constants/colors.ts with exact values from Primo Design System.html (ink, sage scale, surface variants, warm status colors)
 - [x] **Warm palette redesign** — `feat/redesign-warm-palette` branch; cream `#F5ECDC` bg, sage `#4F6B4A` primary, Nunito fonts, all screens restyled, auth screens, onboarding

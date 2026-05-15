@@ -141,19 +141,20 @@ export default function PlaygroundScreen() {
       {/* 02 · Typography */}
       <Section title="02 · Typography">
         {([
-          ['h1', 'h1', { fontSize: 30, fontFamily: 'Nunito_800ExtraBold', letterSpacing: -0.45, lineHeight: 36 }],
-          ['h2', 'h2', { fontSize: 22, fontFamily: 'Nunito_800ExtraBold', letterSpacing: -0.22, lineHeight: 28 }],
-          ['h3', 'h3', { fontSize: 18, fontFamily: 'Nunito_700Bold', lineHeight: 24 }],
-          ['h4', 'h4', { fontSize: 16, fontFamily: 'Nunito_700Bold', lineHeight: 22 }],
-          ['body', 'body', { fontSize: 16, fontFamily: 'Nunito_400Regular', lineHeight: 24 }],
-          ['body2', 'body2', { fontSize: 14, fontFamily: 'Nunito_400Regular', lineHeight: 20 }],
-          ['label', 'label', { fontSize: 16, fontFamily: 'Nunito_600SemiBold', lineHeight: 22 }],
-          ['labelSm', 'labelSm', { fontSize: 14, fontFamily: 'Nunito_600SemiBold', lineHeight: 20 }],
-          ['caption', 'caption', { fontSize: 12, fontFamily: 'Nunito_700Bold', letterSpacing: 0.8, textTransform: 'uppercase' as const }],
-          ['overline', 'overline', { fontSize: 11, fontFamily: 'Nunito_600SemiBold', letterSpacing: 0.8, textTransform: 'uppercase' as const }],
-          ['brand', 'brand', { fontSize: 26, fontFamily: 'Nunito_800ExtraBold', letterSpacing: -0.26 }],
-          ['number', 'number (Inter)', { fontSize: 38, fontFamily: 'Inter_700Bold', letterSpacing: -0.76, lineHeight: 44 }],
-          ['numberSm', 'numberSm (Inter)', { fontSize: 24, fontFamily: 'Inter_600SemiBold', letterSpacing: -0.48, lineHeight: 30 }],
+          ['display', 'display · 40px/800', { fontSize: 40, fontFamily: 'Nunito_800ExtraBold', letterSpacing: -0.8, lineHeight: 48 }],
+          ['h1', 'h1 · 30px/800', { fontSize: 30, fontFamily: 'Nunito_800ExtraBold', letterSpacing: -0.45, lineHeight: 36 }],
+          ['h2', 'h2 · 22px/800', { fontSize: 22, fontFamily: 'Nunito_800ExtraBold', letterSpacing: -0.22, lineHeight: 28 }],
+          ['h3', 'h3 · 18px/700', { fontSize: 18, fontFamily: 'Nunito_700Bold', lineHeight: 24 }],
+          ['h4', 'h4 · 16px/700', { fontSize: 16, fontFamily: 'Nunito_700Bold', lineHeight: 22 }],
+          ['body', 'body · 16px/400', { fontSize: 16, fontFamily: 'Nunito_400Regular', lineHeight: 24 }],
+          ['body2', 'body2 · 14px/400', { fontSize: 14, fontFamily: 'Nunito_400Regular', lineHeight: 20 }],
+          ['label', 'label · 16px/600', { fontSize: 16, fontFamily: 'Nunito_600SemiBold', lineHeight: 22 }],
+          ['labelSm', 'labelSm · 14px/600', { fontSize: 14, fontFamily: 'Nunito_600SemiBold', lineHeight: 20 }],
+          ['caption', 'caption · 12px/700 UPPERCASE', { fontSize: 12, fontFamily: 'Nunito_700Bold', letterSpacing: 2.16, textTransform: 'uppercase' as const, lineHeight: 16 }],
+          ['overline', 'overline · 11px/600 UPPERCASE', { fontSize: 11, fontFamily: 'Nunito_600SemiBold', letterSpacing: 0.8, textTransform: 'uppercase' as const }],
+          ['number', 'number · 38px/700 Inter', { fontSize: 38, fontFamily: 'Inter_700Bold', letterSpacing: -0.76, lineHeight: 44 }],
+          ['numberSm', 'numberSm · 24px/700 Inter', { fontSize: 24, fontFamily: 'Inter_700Bold', letterSpacing: -0.48, lineHeight: 30 }],
+          ['brand', 'brand · 26px/800', { fontSize: 26, fontFamily: 'Nunito_800ExtraBold', letterSpacing: -0.26 }],
         ] as [string, string, object][]).map(([key, label, style]) => (
           <View key={key} style={{ flexDirection: 'row', alignItems: 'baseline', paddingVertical: spacing[3], borderBottomWidth: 1, borderBottomColor: colors.border, gap: spacing[5] }}>
             <Text style={{ fontSize: 11, fontFamily: 'Nunito_600SemiBold', color: colors.muted, width: 140, flexShrink: 0 }}>{label}</Text>

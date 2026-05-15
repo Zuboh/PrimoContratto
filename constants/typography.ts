@@ -18,9 +18,10 @@ export const fontSize = {
   xl: 16,
   '2xl': 18,
   '3xl': 20,
-  '4xl': 24,
-  '5xl': 26,
-  '6xl': 32,
+  '4xl': 22,   // h2
+  '5xl': 30,   // h1
+  '6xl': 38,   // number
+  '7xl': 40,   // display
 } as const
 
 export const lineHeight = {
@@ -31,82 +32,125 @@ export const lineHeight = {
 } as const
 
 export const typography = {
+  // ── Display ─────────────────────────────────
+  display: {
+    fontSize: 40,
+    fontFamily: fontFamily.extraBold,
+    letterSpacing: -0.8,
+    lineHeight: 48,
+  } as TextStyle,
+
+  // ── Headings ────────────────────────────────
   h1: {
-    fontSize: fontSize['5xl'],
-    fontFamily: fontFamily.bold,
-    lineHeight: fontSize['5xl'] * lineHeight.tight,
+    fontSize: 30,
+    fontFamily: fontFamily.extraBold,
+    letterSpacing: -0.45,
+    lineHeight: 36,
   } as TextStyle,
 
   h2: {
-    fontSize: fontSize['4xl'],
-    fontFamily: fontFamily.bold,
-    lineHeight: fontSize['3xl'] * lineHeight.tight,
+    fontSize: 22,
+    fontFamily: fontFamily.extraBold,
+    letterSpacing: -0.22,
+    lineHeight: 28,
   } as TextStyle,
 
   h3: {
-    fontSize: fontSize.xl,
+    fontSize: 18,
     fontFamily: fontFamily.bold,
-    lineHeight: fontSize.xl * lineHeight.normal,
+    lineHeight: 24,
   } as TextStyle,
 
   h4: {
-    fontSize: fontSize.lg,
+    fontSize: 16,
     fontFamily: fontFamily.bold,
-    lineHeight: fontSize.lg * lineHeight.normal,
+    lineHeight: 22,
+  } as TextStyle,
+
+  // ── Body ────────────────────────────────────
+  body: {
+    fontSize: 16,
+    fontFamily: fontFamily.regular,
+    lineHeight: 24,
   } as TextStyle,
 
   bodyLg: {
-    fontSize: fontSize.lg,
+    fontSize: 16,
     fontFamily: fontFamily.regular,
-    lineHeight: fontSize.lg * lineHeight.relaxed,
+    lineHeight: 24,
   } as TextStyle,
 
-  body: {
-    fontSize: fontSize.base,
+  body2: {
+    fontSize: 14,
     fontFamily: fontFamily.regular,
-    lineHeight: fontSize.base * lineHeight.relaxed,
+    lineHeight: 20,
   } as TextStyle,
 
   bodySm: {
-    fontSize: fontSize.md,
+    fontSize: 14,
     fontFamily: fontFamily.regular,
-    lineHeight: fontSize.md * lineHeight.relaxed,
+    lineHeight: 20,
   } as TextStyle,
 
+  // ── Labels ──────────────────────────────────
   label: {
-    fontSize: fontSize.lg,
+    fontSize: 16,
     fontFamily: fontFamily.semiBold,
-    lineHeight: fontSize.lg * lineHeight.normal,
+    lineHeight: 22,
   } as TextStyle,
 
   labelSm: {
-    fontSize: fontSize.base,
+    fontSize: 14,
     fontFamily: fontFamily.semiBold,
-    lineHeight: fontSize.base * lineHeight.normal,
+    lineHeight: 20,
   } as TextStyle,
 
+  // ── Caption ─────────────────────────────────
+  // Design System: 12px / 700 / uppercase / ls 0.18em
   caption: {
-    fontSize: fontSize.base,
-    fontFamily: fontFamily.regular,
-    lineHeight: fontSize.base * lineHeight.normal,
+    fontSize: 12,
+    fontFamily: fontFamily.bold,
+    letterSpacing: 2.16,
+    textTransform: 'uppercase',
+    lineHeight: 16,
   } as TextStyle,
 
   captionBold: {
-    fontSize: fontSize.base,
-    fontFamily: fontFamily.bold,
-    lineHeight: fontSize.base * lineHeight.normal,
+    fontSize: 12,
+    fontFamily: fontFamily.extraBold,
+    letterSpacing: 0.8,
+    textTransform: 'uppercase',
+    lineHeight: 16,
   } as TextStyle,
 
   overline: {
-    fontSize: fontSize.sm,
+    fontSize: 11,
     fontFamily: fontFamily.semiBold,
     letterSpacing: 0.8,
     textTransform: 'uppercase',
   } as TextStyle,
 
+  // ── Numeric (Inter) ─────────────────────────
+  // Design System: 38px / 800 / ls -0.02em
+  number: {
+    fontSize: 38,
+    fontFamily: fontFamily.numericBold,
+    letterSpacing: -0.76,
+    lineHeight: 44,
+  } as TextStyle,
+
+  numberSm: {
+    fontSize: 24,
+    fontFamily: fontFamily.numericBold,
+    letterSpacing: -0.48,
+    lineHeight: 30,
+  } as TextStyle,
+
+  // ── Brand ───────────────────────────────────
   brand: {
-    fontSize: fontSize['3xl'],
+    fontSize: 26,
     fontFamily: fontFamily.extraBold,
+    letterSpacing: -0.26,
   } as TextStyle,
 } as const
 
