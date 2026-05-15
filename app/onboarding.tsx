@@ -1,7 +1,6 @@
 import { duration } from '@/constants/motion'
 import { useTheme } from '@/hooks/useTheme'
 import { router } from 'expo-router'
-import { Leaf, ShieldCheck } from 'lucide-react-native'
 import React, { useRef, useState } from 'react'
 import {
   Dimensions,
@@ -138,7 +137,7 @@ function Slide1() {
           <Text
             style={{
               fontSize: isSmallScreen ? 16 : 17,
-              fontFamily: 'Nunito_400Regular',
+              fontFamily: 'Quicksand_400Regular',
               color: colors.primary,
               textAlign: 'center',
               marginTop: 8,
@@ -206,25 +205,10 @@ function Slide2() {
         alignItems: 'center',
       }}
     >
-      {/* Icon */}
-      <View
-        style={{
-          marginTop: 125,
-          width: 86,
-          height: 86,
-          borderRadius: 43,
-          backgroundColor: colors.sage50,
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
-        <ShieldCheck size={40} color={colors.sage600} strokeWidth={1.7} />
-      </View>
-
       {/* Title */}
       <Text
         style={{
-          marginTop: 42,
+          marginTop: 150,
           fontSize: 27,
           fontFamily: 'Nunito_600SemiBold',
           color: colors.foreground,
@@ -297,25 +281,11 @@ function Slide3() {
         alignItems: 'center',
       }}
     >
-      {/* Icon */}
-      <View
-        style={{
-          marginTop: 125,
-          width: 86,
-          height: 86,
-          borderRadius: 43,
-          backgroundColor: colors.sage100,
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
-        <Leaf size={40} color={colors.sage600} strokeWidth={1.7} />
-      </View>
 
       {/* Title */}
       <Text
         style={{
-          marginTop: 42,
+          marginTop: 150,
           fontSize: 27,
           fontFamily: 'Nunito_600SemiBold',
           color: colors.foreground,

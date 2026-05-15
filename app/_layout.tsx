@@ -9,6 +9,10 @@ import {
   Nunito_700Bold,
   Nunito_800ExtraBold,
 } from '@expo-google-fonts/nunito'
+import {
+  Quicksand_400Regular,
+  Quicksand_600SemiBold,
+} from '@expo-google-fonts/quicksand'
 import { Stack } from 'expo-router'
 import * as SplashScreen from 'expo-splash-screen'
 import { StatusBar } from 'expo-status-bar'
@@ -26,6 +30,8 @@ export default function RootLayout() {
     Nunito_800ExtraBold,
     Inter_400Regular,
     Inter_700Bold,
+    Quicksand_400Regular,
+    Quicksand_600SemiBold,
   })
 
   useEffect(() => {
