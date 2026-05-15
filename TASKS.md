@@ -41,7 +41,7 @@
 - [ ] **Upload / Carica cedolino** — match `docs/design/screenshots/primo/upload.png`; two option cards, info rows, format hint
 - [ ] **Loading / Analisi in corso** — match `docs/design/screenshots/primo/caricamento.png`; progress bar, step checklist, illustration slot
 - [ ] **Riepilogo** — match `docs/design/screenshots/primo/riepilogo.png`; header card with panda slot, salary breakdown, action cards
-- [ ] **Onboarding** — match `docs/design/screenshots/primo/onboarding.png`; 3 slides, illustration slots, dot pagination, CTA
+- [x] **Onboarding** — 3 slides with real panda illustrations, Primo wordmark, Salta skip button, swipe + dot pagination; 3 slides, illustration slots, dot pagination, CTA
 - [ ] **Login** — match Design System §16.7; form card, fields with icons, 'Accedi' pill CTA, Google button
 - [ ] **Register** — match Design System §16.7; form card, live password helper, terms checkbox, 'Registrati' CTA
 
