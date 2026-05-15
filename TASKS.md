@@ -62,6 +62,7 @@
 
 ## Done
 
+- [x] **Implement remaining DS sections** — motion tokens, button spec, skeleton shimmer, BottomNav card style
 - [x] **Align spacing/shadows/cards to Design System HTML** — shadow pop uses warm brown, fab opacity→0.28, Card adds hero variant (r-xl), base padding→20px, default drops border
 - [x] **Align radius + shadow tokens to Design System HTML** — add xs=10, sm→14, md→18, fix shadow shadowColor to sage-900
 - [x] **Align typography tokens to Design System HTML** — h1→30px/800, h2→22px/800, h3→18px, body→16px, caption→bold uppercase, add display+number styles

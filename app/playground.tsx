@@ -225,6 +225,11 @@ export default function PlaygroundScreen() {
           <Button label="Loading" onPress={() => {}} loading fullWidth={false} />
           <Button label="Disabled" onPress={() => {}} disabled fullWidth={false} />
         </Row>
+        <Row label="Small (sm)">
+          <Button label="Primary sm" onPress={() => {}} size="sm" fullWidth={false} />
+          <Button label="Secondary sm" variant="secondary" onPress={() => {}} size="sm" fullWidth={false} />
+          <Button label="Ghost sm" variant="ghost" onPress={() => {}} size="sm" fullWidth={false} />
+        </Row>
         <Row label="Full width">
           <Button label="Full width primary" onPress={() => {}} />
         </Row>
@@ -300,6 +305,41 @@ export default function PlaygroundScreen() {
           <Button label="✕ Error" variant="secondary" onPress={() => toast.error('Errore nel caricamento.')} fullWidth={false} />
           <Button label="⚠ Warning" variant="secondary" onPress={() => toast.warning('Controlla il cedolino.')} fullWidth={false} />
           <Button label="ℹ Info" variant="secondary" onPress={() => toast.info('Nuovo cedolino disponibile.')} fullWidth={false} />
+        </View>
+      </Section>
+
+      {/* 13 · Motion */}
+      <Section title="13 · Motion Tokens">
+        <View style={{ gap: spacing[3] }}>
+          {([
+            ['instant', '80ms', 'hover, focus ring'],
+            ['quick', '160ms', 'tap feedback, FAB press'],
+            ['base', '240ms', 'cards, fades, dropdowns'],
+            ['soft', '360ms', 'bottom sheets, page transitions'],
+            ['slow', '520ms', 'success animations, hero'],
+            ['breath', '2400ms', 'idle loops — panda, leaf'],
+          ] as const).map(([key, val, use]) => (
+            <View key={key} style={{ flexDirection: 'row', alignItems: 'center', paddingVertical: spacing[2], borderBottomWidth: 1, borderBottomColor: colors.border, gap: spacing[4] }}>
+              <Text style={{ fontSize: 12, fontFamily: 'Nunito_700Bold', color: colors.foreground, width: 70 }}>{key}</Text>
+              <Text style={{ fontSize: 13, fontFamily: 'Inter_700Bold', color: colors.primary, width: 60 }}>{val}</Text>
+              <Text style={{ fontSize: 12, fontFamily: 'Nunito_400Regular', color: colors.muted, flex: 1 }}>{use}</Text>
+            </View>
+          ))}
+        </View>
+        <View style={{ marginTop: spacing[5], gap: spacing[3] }}>
+          <Text style={{ fontSize: 11, fontFamily: 'Nunito_700Bold', color: colors.muted }}>EASING</Text>
+          {([
+            ['e-out', 'cubic-bezier(0.22, 0.61, 0.36, 1)', 'things arriving'],
+            ['e-in', 'cubic-bezier(0.55, 0.06, 0.68, 0.19)', 'things leaving'],
+            ['e-soft', 'cubic-bezier(0.42, 0, 0.32, 1)', 'smooth in-and-out'],
+            ['e-breath', 'cubic-bezier(0.45, 0, 0.55, 1)', 'symmetric idle loops'],
+          ] as const).map(([key, val, use]) => (
+            <View key={key} style={{ flexDirection: 'row', alignItems: 'center', paddingVertical: spacing[2], borderBottomWidth: 1, borderBottomColor: colors.border, gap: spacing[4] }}>
+              <Text style={{ fontSize: 12, fontFamily: 'Nunito_700Bold', color: colors.foreground, width: 80 }}>{key}</Text>
+              <Text style={{ fontSize: 10, fontFamily: 'Inter_700Bold', color: colors.primary, flex: 1 }}>{val}</Text>
+              <Text style={{ fontSize: 11, fontFamily: 'Nunito_400Regular', color: colors.muted, width: 140 }}>{use}</Text>
+            </View>
+          ))}
         </View>
       </Section>
 

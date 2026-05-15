@@ -5,7 +5,7 @@ export const colors = {
   primary: '#4F6B4A',          // sage-700 — CTA, active states
   primaryDark: '#3F5A45',      // sage-900 — pressed/hover
   primaryLight: '#E8EEDC',     // sage-50 — chip backgrounds
-  primaryForeground: '#FFFFFF',
+  primaryForeground: '#F8F4E6',  // warm white (not pure #FFF)
 
   // ── Backgrounds (warm cream) ────────────────
   background: '#F5ECDC',       // --bg — page background

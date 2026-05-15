@@ -8,6 +8,7 @@ export function Button({
   label,
   onPress,
   variant = 'primary',
+  size = 'default',
   loading = false,
   disabled = false,
   fullWidth = true,
@@ -16,8 +17,8 @@ export function Button({
   const theme = useTheme()
 
   const styles = useMemo(
-    () => createButtonStyles(theme, fullWidth, disabled),
-    [theme, fullWidth, disabled],
+    () => createButtonStyles(theme, fullWidth, disabled, size),
+    [theme, fullWidth, disabled, size],
   )
 
   const labelStyle =

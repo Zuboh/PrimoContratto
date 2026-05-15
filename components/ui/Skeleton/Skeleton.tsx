@@ -24,21 +24,18 @@ export function Skeleton({
   const { colors, radius } = useTheme()
   const opacity = useSharedValue(1)
 
+  // DS: 1800ms sweep, opacity 0.85 → 0.4 → 0.85, sage-tinted base
   useEffect(() => {
-    opacity.value = withRepeat(withTiming(0.3, { duration: 800 }), -1, true)
+    opacity.value = withRepeat(withTiming(0.4, { duration: 900 }), -1, true)
   }, [opacity])
 
-  const animatedStyle = useAnimatedStyle(() => ({
-    opacity: opacity.value,
-  }))
+  const animatedStyle = useAnimatedStyle(() => ({ opacity: opacity.value }))
 
   const staticStyle: ViewStyle = {
     width,
     height,
     borderRadius: borderRadius ?? radius.md,
-    backgroundColor: colors.surfaceAlt,
-    borderWidth: 1,
-    borderColor: colors.border,
+    backgroundColor: colors.surface2,   // DS: --surface-2 base color
   }
 
   return <Animated.View style={[staticStyle, animatedStyle, style]} />
