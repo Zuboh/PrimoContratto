@@ -27,23 +27,17 @@ export const createCardStyles = (theme: Theme) => {
       backgroundColor: colors.surface2,
     },
 
-    // Status variants — left accent border
+    // Status variants
     warning: {
       backgroundColor: colors.warningLight,
-      borderLeftWidth: 4,
-      borderLeftColor: colors.warning,
     },
 
     success: {
       backgroundColor: colors.successLight,
-      borderLeftWidth: 4,
-      borderLeftColor: colors.success,
     },
 
     error: {
       backgroundColor: colors.destructiveLight,
-      borderLeftWidth: 4,
-      borderLeftColor: colors.destructive,
     },
   })
 }
