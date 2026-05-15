@@ -1,4 +1,3 @@
-import { BottomNav } from '@/components/layout/BottomNav/index'
 import { GuideCard } from '@/components/home/GuideCard'
 import { IllustrationPlaceholder } from '@/components/ui/IllustrationPlaceholder'
 import { useTheme } from '@/hooks/useTheme'
@@ -29,7 +28,7 @@ export default function HomeScreen() {
   const statusOk = globalStatus === 'positive'
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: colors.background }}>
+    <SafeAreaView edges={['top']} style={{ flex: 1, backgroundColor: colors.background }}>
       <ScrollView
         style={{ flex: 1 }}
         contentContainerStyle={{
@@ -152,7 +151,6 @@ export default function HomeScreen() {
         <GuideCard />
       </ScrollView>
 
-      <BottomNav />
     </SafeAreaView>
   )
 }

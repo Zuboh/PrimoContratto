@@ -1,4 +1,3 @@
-import { BottomNav } from '@/components/layout/BottomNav/index'
 import { useTheme } from '@/hooks/useTheme'
 import { useAnalysisStore } from '@/stores/analysisStore'
 import { useHistoryStore } from '@/stores/historyStore'
@@ -54,7 +53,7 @@ export default function HistoryScreen() {
   }
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: colors.background }}>
+    <SafeAreaView edges={['top']} style={{ flex: 1, backgroundColor: colors.background }}>
       <View style={[styles.header, { borderBottomColor: colors.border }]}>
         <Text style={[typography.h1, { color: colors.foreground }]}>Storico</Text>
         {entries.length > 0 && (
@@ -167,7 +166,6 @@ export default function HistoryScreen() {
         </ScrollView>
       )}
 
-      <BottomNav />
     </SafeAreaView>
   )
 }

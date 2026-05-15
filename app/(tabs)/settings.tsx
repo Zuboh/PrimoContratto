@@ -1,4 +1,3 @@
-import { BottomNav } from '@/components/layout/BottomNav/index'
 import { useTheme } from '@/hooks/useTheme'
 import { useAuthStore } from '@/stores/authStore'
 import { useHistoryStore } from '@/stores/historyStore'
@@ -96,7 +95,7 @@ export default function SettingsScreen() {
   }
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: colors.background }}>
+    <SafeAreaView edges={['top']} style={{ flex: 1, backgroundColor: colors.background }}>
       <View style={[styles.header, { borderBottomColor: colors.border }]}>
         <Text style={[typography.h2, { color: colors.foreground }]}>Profilo</Text>
       </View>
@@ -195,7 +194,6 @@ export default function SettingsScreen() {
         </View>
       </ScrollView>
 
-      <BottomNav />
     </SafeAreaView>
   )
 }
