@@ -161,11 +161,11 @@ export default function HomeScreen() {
               <Text style={{ fontSize: 13, color: '#FFFFFF', fontFamily: 'Nunito_600SemiBold' }}>Design System Playground →</Text>
             </Pressable>
             <Pressable
-              onPress={() => { useAuthStore.getState().logout(); router.replace('/') }}
+              onPress={() => router.push({ pathname: '/', params: { preview: '1' } })}
               style={{ paddingVertical: spacing[3], paddingHorizontal: spacing[4], borderRadius: radius.md, backgroundColor: '#3A1A1A', flexDirection: 'row', alignItems: 'center', gap: spacing[2] }}
             >
               <Text style={{ fontSize: 10, color: '#F5C994', fontFamily: 'Nunito_700Bold', letterSpacing: 1 }}>DEV</Text>
-              <Text style={{ fontSize: 13, color: '#FFFFFF', fontFamily: 'Nunito_600SemiBold' }}>Reset → Onboarding</Text>
+              <Text style={{ fontSize: 13, color: '#FFFFFF', fontFamily: 'Nunito_600SemiBold' }}>Preview Onboarding →</Text>
             </Pressable>
           </View>
         )}

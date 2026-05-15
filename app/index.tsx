@@ -1,6 +1,6 @@
 import { useTheme } from '@/hooks/useTheme'
 import { useAuthStore } from '@/stores/authStore'
-import { router } from 'expo-router'
+import { router, useLocalSearchParams } from 'expo-router'
 import React, { useEffect, useRef, useState } from 'react'
 import {
   Dimensions,
@@ -30,10 +30,11 @@ export default function OnboardingScreen() {
   const [activeIndex, setActiveIndex] = useState(0)
   const listRef = useRef<FlatList>(null)
   const { isLoggedIn } = useAuthStore()
+  const { preview } = useLocalSearchParams<{ preview?: string }>()
 
-  // Already logged in → skip onboarding
+  // Already logged in → skip onboarding (unless preview mode)
   useEffect(() => {
-    if (isLoggedIn) router.replace('/(tabs)')
+    if (isLoggedIn && !preview) router.replace('/(tabs)')
   }, [])
 
   const goNext = () => {
