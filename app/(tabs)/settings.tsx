@@ -121,12 +121,24 @@ export default function SettingsScreen() {
             ]}
           >
             {isLoggedIn && user ? (
-              <SettingsRow
-                icon={<User size={18} color={colors.muted} />}
-                label={user.email}
-                rightLabel={user.plan === 'pro' ? 'Pro' : 'Gratuito'}
-                {...rowProps}
-              />
+              <>
+                <SettingsRow
+                  icon={<User size={18} color={colors.muted} />}
+                  label={user.email}
+                  rightLabel={user.plan === 'pro' ? 'Pro' : 'Gratuito'}
+                  {...rowProps}
+                />
+                <SettingsRow
+                  icon={<LogIn size={18} color={colors.destructive} />}
+                  label="Esci"
+                  onPress={() => {
+                    useAuthStore.getState().logout()
+                    router.replace('/')
+                  }}
+                  destructive
+                  {...rowProps}
+                />
+              </>
             ) : (
               <SettingsRow
                 icon={<LogIn size={18} color={colors.muted} />}

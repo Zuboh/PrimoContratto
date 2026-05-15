@@ -150,28 +150,24 @@ export default function HomeScreen() {
         {/* Guide card */}
         <GuideCard />
 
-        {/* DEV ONLY: playground shortcut */}
+        {/* DEV ONLY */}
         {__DEV__ && (
-          <Pressable
-            onPress={() => router.push('/playground')}
-            style={{
-              marginTop: spacing[4],
-              paddingVertical: spacing[3],
-              paddingHorizontal: spacing[4],
-              borderRadius: radius.md,
-              backgroundColor: '#1A1A1A',
-              flexDirection: 'row',
-              alignItems: 'center',
-              gap: spacing[2],
-            }}
-          >
-            <Text style={{ fontSize: 10, color: '#F5C994', fontFamily: 'Nunito_700Bold', letterSpacing: 1 }}>
-              DEV
-            </Text>
-            <Text style={{ fontSize: 13, color: '#FFFFFF', fontFamily: 'Nunito_600SemiBold' }}>
-              Design System Playground →
-            </Text>
-          </Pressable>
+          <View style={{ gap: spacing[2] }}>
+            <Pressable
+              onPress={() => router.push('/playground')}
+              style={{ paddingVertical: spacing[3], paddingHorizontal: spacing[4], borderRadius: radius.md, backgroundColor: '#1A1A1A', flexDirection: 'row', alignItems: 'center', gap: spacing[2] }}
+            >
+              <Text style={{ fontSize: 10, color: '#F5C994', fontFamily: 'Nunito_700Bold', letterSpacing: 1 }}>DEV</Text>
+              <Text style={{ fontSize: 13, color: '#FFFFFF', fontFamily: 'Nunito_600SemiBold' }}>Design System Playground →</Text>
+            </Pressable>
+            <Pressable
+              onPress={() => { useAuthStore.getState().logout(); router.replace('/') }}
+              style={{ paddingVertical: spacing[3], paddingHorizontal: spacing[4], borderRadius: radius.md, backgroundColor: '#3A1A1A', flexDirection: 'row', alignItems: 'center', gap: spacing[2] }}
+            >
+              <Text style={{ fontSize: 10, color: '#F5C994', fontFamily: 'Nunito_700Bold', letterSpacing: 1 }}>DEV</Text>
+              <Text style={{ fontSize: 13, color: '#FFFFFF', fontFamily: 'Nunito_600SemiBold' }}>Reset → Onboarding</Text>
+            </Pressable>
+          </View>
         )}
       </ScrollView>
 
