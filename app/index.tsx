@@ -40,7 +40,7 @@ export default function OnboardingScreen() {
 
   const goNext = () => {
     if (isLast) {
-      router.replace('/(tabs)')
+      router.replace('/(auth)/login')
       return
     }
     const next = activeIndex + 1
