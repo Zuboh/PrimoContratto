@@ -45,6 +45,7 @@ export default function RootLayout() {
           <Stack.Screen name="(auth)" />
           <Stack.Screen name="upload" />
           <Stack.Screen name="loading" />
+          <Stack.Screen name="onboarding" />
           <Stack.Screen name="report/[id]" />
           <Stack.Screen name="playground" />
         </Stack>
