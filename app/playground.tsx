@@ -1,14 +1,19 @@
 import { Badge } from '@/components/ui/Badge'
+import { BottomSheet } from '@/components/ui/BottomSheet'
 import { Button } from '@/components/ui/Button'
 import { Card } from '@/components/ui/Card'
+import { Checkbox } from '@/components/ui/Checkbox'
 import { IllustrationPlaceholder } from '@/components/ui/IllustrationPlaceholder'
 import { Logo, LogoWithText } from '@/components/ui/Logo/Logo'
+import { Radio, RadioGroup } from '@/components/ui/Radio'
 import { Skeleton, SkeletonRow } from '@/components/ui/Skeleton/Skeleton'
 import { Spinner } from '@/components/ui/Spinner'
+import { TextField } from '@/components/ui/TextField'
+import { Toggle } from '@/components/ui/Toggle'
 import { useToastContext } from '@/contexts/ToastContext'
 import { useTheme } from '@/hooks/useTheme'
 import { Redirect } from 'expo-router'
-import React from 'react'
+import React, { useState } from 'react'
 import { Platform, ScrollView, Text, View } from 'react-native'
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
@@ -83,6 +88,13 @@ function SwatchGroup({ title, swatches }: { title: string; swatches: { name: str
 export default function PlaygroundScreen() {
   const { colors, spacing, radius, shadow } = useTheme()
   const toast = useToastContext()
+
+  const [textValue, setTextValue] = useState('')
+  const [toggleOn, setToggleOn] = useState(false)
+  const [checked, setChecked] = useState(false)
+  const [radioSelected, setRadioSelected] = useState('a')
+  const [sheetVisible, setSheetVisible] = useState(false)
+  const [sheetVariant, setSheetVariant] = useState<'default' | 'confirmation' | 'destructive' | 'info' | 'success'>('default')
 
   if (Platform.OS !== 'web') return <Redirect href="/(tabs)" />
 
@@ -343,14 +355,75 @@ export default function PlaygroundScreen() {
         </View>
       </Section>
 
-      {/* In Costruzione */}
-      <Section title="In Costruzione 🔧">
-        <View style={{ gap: spacing[3] }}>
-          <ComingSoon title="Form Inputs — TextField, Select, Textarea" spec="§16" />
-          <ComingSoon title="Bottom Sheet / Modal" spec="§14" />
-          <ComingSoon title="Empty State" spec="§12" />
-          <ComingSoon title="Checkbox · Radio · Toggle" spec="§16.4" />
+      {/* 14 · TextField */}
+      <Section title="14 · Text Field">
+        <View style={{ gap: spacing[5] }}>
+          <TextField label="Email" placeholder="nome@esempio.it" value={textValue} onChangeText={setTextValue} helperText="Usa il tuo indirizzo email principale." />
+          <TextField label="Password" placeholder="Minimo 8 caratteri" value="" onChangeText={() => {}} secureTextEntry helperText="Almeno 8 caratteri." />
+          <TextField label="Error" placeholder="" value="mario@@wrong" onChangeText={() => {}} state="error" errorText="Controlla l'indirizzo email." />
+          <TextField label="Success" placeholder="" value="mario@primo.it" onChangeText={() => {}} state="success" helperText="Indirizzo verificato." />
+          <TextField label="Disabled" placeholder="" value="mario@primo.it" onChangeText={() => {}} state="disabled" />
+          <TextField label="Textarea" placeholder="Scrivi una nota..." value="" onChangeText={() => {}} multiline />
         </View>
+      </Section>
+
+      {/* 15 · Toggle */}
+      <Section title="15 · Toggle">
+        <View style={{ gap: spacing[4] }}>
+          <Toggle value={toggleOn} onToggle={setToggleOn} label="Autenticazione biometrica" description="Accedi con Face ID o impronta." />
+          <Toggle value={false} onToggle={() => {}} label="Promemoria upload" description="Ti ricordiamo di caricare i nuovi cedolini." />
+          <Toggle value={true} onToggle={() => {}} disabled label="Sincronizza in cloud" description="Disponibile con Primo Plus." />
+        </View>
+      </Section>
+
+      {/* 16 · Checkbox */}
+      <Section title="16 · Checkbox">
+        <View style={{ gap: spacing[4] }}>
+          <Checkbox value={checked} onToggle={setChecked} label="Accetto i termini di servizio" />
+          <Checkbox value={true} onToggle={() => {}} label="Iscrivimi alla newsletter" />
+          <Checkbox value={false} onToggle={() => {}} label="Opzione disabilitata" disabled />
+        </View>
+      </Section>
+
+      {/* 17 · Radio */}
+      <Section title="17 · Radio">
+        <RadioGroup
+          selected={radioSelected}
+          onSelect={setRadioSelected}
+          options={[
+            { value: 'a', label: 'Annuale · €35,99', description: 'Piu conveniente · €3,00 al mese' },
+            { value: 'b', label: 'Trimestrale · €19,99', description: 'Ogni 3 mesi' },
+            { value: 'c', label: 'Mensile · €6,99', description: 'Cancelli quando vuoi' },
+          ]}
+        />
+      </Section>
+
+      {/* 18 · Bottom Sheet */}
+      <Section title="18 · Bottom Sheet">
+        <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: spacing[3] }}>
+          {(['default', 'confirmation', 'info', 'success', 'destructive'] as const).map((v) => (
+            <Button key={v} label={v} variant="secondary" size="sm" fullWidth={false}
+              onPress={() => { setSheetVariant(v); setSheetVisible(true) }}
+            />
+          ))}
+        </View>
+        <BottomSheet
+          visible={sheetVisible}
+          onClose={() => setSheetVisible(false)}
+          variant={sheetVariant}
+          title={sheetVariant === 'destructive' ? 'Elimina analisi?' : 'Titolo del foglio'}
+          description={sheetVariant === 'destructive'
+            ? 'Questa azione non puo essere annullata.'
+            : 'Descrizione del contenuto del bottom sheet.'}
+          primaryLabel={sheetVariant === 'destructive' ? 'Elimina' : 'Conferma'}
+          onPrimary={() => {}}
+          secondaryLabel="Annulla"
+        />
+      </Section>
+
+      {/* Empty State — still coming */}
+      <Section title="In Costruzione">
+        <ComingSoon title="Empty State — pattern con illustrazione + CTA" spec="§12" />
       </Section>
     </ScrollView>
   )

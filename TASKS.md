@@ -46,7 +46,10 @@
 - [ ] **Register** — match Design System §16.7; form card, live password helper, terms checkbox, 'Registrati' CTA
 
 ### Design System Components to Build
-- [ ] **TextField component** — label + icon + helper text + error state; Design System §16.1
+- [x] **TextField component** — label, icon, helper, error/success states, focus ring
+- [x] **BottomSheet component** — 5 variants, drag handle, reanimated slide-up, overlay
+- [x] **Checkbox + Radio** — 22×22px, sage-700 checked state
+- [x] **Toggle switch** — 50×30px, thumb animation, sage-700 on — label + icon + helper text + error state; Design System §16.1
 - [ ] **BottomSheet component** — 5 variants (default, confirm, destructive, info, loading); Design System §14
 - [ ] **EmptyState component** — IllustrationPlaceholder + title + body + CTA button; Design System §12
 - [ ] **Checkbox + Radio** — form controls; Design System §16.4
