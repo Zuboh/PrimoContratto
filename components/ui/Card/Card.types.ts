@@ -2,6 +2,7 @@ import { ViewStyle } from 'react-native'
 
 export type CardVariant =
   | 'default'
+  | 'hero'
   | 'surface'
   | 'warning'
   | 'success'
@@ -9,7 +10,7 @@ export type CardVariant =
 
 export interface CardProps {
   children?: React.ReactNode
-  variant?: 'default' | 'surface' | 'warning' | 'success' | 'error'
+  variant?: CardVariant
   style?: ViewStyle
   loading?: boolean
 }

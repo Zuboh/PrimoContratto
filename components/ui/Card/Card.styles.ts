@@ -6,29 +6,40 @@ export const createCardStyles = (theme: Theme) => {
 
   return StyleSheet.create({
     base: {
-      borderRadius: radius.lg,
-      padding: spacing[4],
+      borderRadius: radius.lg,       // --r-lg: 24px
+      padding: spacing[5],           // 20px (DS card-row uses s-6=24, we use 20 for mobile)
       backgroundColor: colors.surface,
       ...shadow.sm,
     },
-    default: {
-      borderWidth: 1,
-      borderColor: colors.border,
+
+    // Standard card — no border, just shadow
+    default: {},
+
+    // Hero card — larger radius, elevated shadow
+    hero: {
+      borderRadius: radius.xl,       // --r-xl: 28px
+      padding: spacing[6],           // 24px
+      ...shadow.md,
     },
+
+    // Sage-tinted card (hints, status info)
     surface: {
-      borderLeftWidth: 4,
-      borderLeftColor: colors.primary,
+      backgroundColor: colors.surface2,
     },
+
+    // Status variants — left accent border
     warning: {
       backgroundColor: colors.warningLight,
       borderLeftWidth: 4,
       borderLeftColor: colors.warning,
     },
+
     success: {
       backgroundColor: colors.successLight,
       borderLeftWidth: 4,
       borderLeftColor: colors.success,
     },
+
     error: {
       backgroundColor: colors.destructiveLight,
       borderLeftWidth: 4,

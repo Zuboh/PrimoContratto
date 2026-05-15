@@ -246,7 +246,7 @@ export default function PlaygroundScreen() {
       {/* 09 · Cards */}
       <Section title="09 · Cards">
         <View style={{ gap: spacing[3] }}>
-          {(['default', 'surface', 'success', 'warning', 'error'] as const).map((variant) => (
+          {(['default', 'hero', 'surface', 'success', 'warning', 'error'] as const).map((variant) => (
             <Card key={variant} variant={variant}>
               <Text style={{ fontSize: 14, fontFamily: 'Nunito_700Bold', color: colors.foreground, marginBottom: 4 }}>Card · {variant}</Text>
               <Text style={{ fontSize: 13, fontFamily: 'Nunito_400Regular', color: colors.muted }}>Il tuo stipendio, spiegato bene.</Text>
