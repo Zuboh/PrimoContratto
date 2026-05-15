@@ -55,10 +55,12 @@
 ### Cleanup
 - [x] **Remove Negoziazione screen** — deleted `app/negotation/[id].tsx`, removed Stack.Screen and BottomNav pathname ref
 - [x] **Remove unused files** — deleted GradientText, Toggle, HeroSection, TrustPills, storage.ts, useDebounce, useMinimumLoading, empty AanalysisChips.tsx
-- [ ] **Build playground screen** — turn `app/playground.tsx` into a full design system showcase with all UI components (Button variants, Card variants, Badge, IllustrationPlaceholder, Typography scale, colors)
+- [x] **Build playground screen** — web-only design system showcase at /playground
+- [ ] **Replace app icon with final Primo branding** — placeholder "P" icon is temporary; replace with real designed icon (1024×1024 PNG) when brand assets are ready — turn `app/playground.tsx` into a full design system showcase with all UI components (Button variants, Card variants, Badge, IllustrationPlaceholder, Typography scale, colors)
 
 ---
 
 ## Done
 
+- [x] **Align color tokens to Design System HTML** — replace all colors in constants/colors.ts with exact values from Primo Design System.html (ink, sage scale, surface variants, warm status colors)
 - [x] **Warm palette redesign** — `feat/redesign-warm-palette` branch; cream `#F5ECDC` bg, sage `#4F6B4A` primary, Nunito fonts, all screens restyled, auth screens, onboarding

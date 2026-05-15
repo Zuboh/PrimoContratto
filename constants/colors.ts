@@ -1,52 +1,62 @@
+// Exact values from Primo Design System.html
+
 export const colors = {
-  // Sage (primary brand)
-  primary: '#4F6B4A',
-  primaryDark: '#3F5A45',
-  primaryLight: '#D4E8CF',
+  // ── Sage (primary brand) ────────────────────
+  primary: '#4F6B4A',          // sage-700 — CTA, active states
+  primaryDark: '#3F5A45',      // sage-900 — pressed/hover
+  primaryLight: '#E8EEDC',     // sage-50 — chip backgrounds
   primaryForeground: '#FFFFFF',
-  gradientStart: '#4F6B4A',
-  gradientEnd: '#5F8D76',
 
-  // Cream backgrounds
-  background: '#F5ECDC',
-  surface: '#FFF5E8',
-  surfaceAlt: '#FAF0E2',
+  // ── Backgrounds (warm cream) ────────────────
+  background: '#F5ECDC',       // --bg — page background
+  bg2: '#F1E7D4',              // --bg-2 — depth layer
+  surface: '#FBF6EA',          // --surface — cards & sheets
+  surface2: '#EFE6D2',         // --surface-2 — sage-tinted hints
+  surface3: '#E8E0CC',         // --surface-3 — dividers, fields
+  surfaceAlt: '#EFE6D2',       // alias → surface2
 
-  // Warm text
-  foreground: '#2B1F0E',
-  muted: '#8C7358',
-  placeholder: '#B09575',
+  // ── Sage scale ──────────────────────────────
+  sage900: '#3F5A45',
+  sage700: '#4F6B4A',
+  sage600: '#5F8D76',          // accent, links, chart dots
+  sage300: '#BFCEBA',          // surface tints
+  sage100: '#DCE5D1',          // soft sage wash
+  sage50: '#E8EEDC',           // lightest chip bg
 
-  // Warm borders
-  border: '#EDE3D5',
-  borderStrong: '#D4C4B0',
+  // ── Ink / Text ──────────────────────────────
+  foreground: '#1A1A1A',       // --ink — primary text & icons
+  ink2: '#2C2A26',             // --ink-2 — alt text on warm surfaces
+  muted: '#6F6A60',            // --muted — secondary text
+  muted2: '#9A938A',           // --muted-2 — captions, tertiary
+  placeholder: '#9A938A',      // alias → muted2
 
-  // Status
-  success: '#2E7D32',
-  successLight: '#F1F8E9',
-  successBorder: '#A5D6A7',
+  // ── Borders ─────────────────────────────────
+  border: '#E8E0CC',           // --surface-3
+  borderStrong: '#BFCEBA',     // --sage-300
 
-  warning: '#E65100',
-  warningLight: '#FFF3E0',
-  warningBorder: '#FFCC80',
+  // ── Status — success (sage) ─────────────────
+  success: '#5F8D76',          // --success = sage-600
+  successLight: '#DCE5D1',     // --sage-100
+  successBorder: '#BFCEBA',    // --sage-300
 
-  destructive: '#C62828',
-  destructiveLight: '#FFEBEE',
-  destructiveBorder: '#EF9A9A',
+  // ── Status — warning (warm orange) ──────────
+  warn: '#E29A4B',             // --warn
+  warnSoft: '#F5C994',         // --warn-soft
+  warning: '#E29A4B',          // alias → warn
+  warningLight: '#F5C994',     // alias → warnSoft
+  warningBorder: '#E29A4B',
 
-  // Warm gray scale
-  gray50: '#FAF5EE',
-  gray100: '#F5EDE2',
-  gray200: '#EAD9C8',
-  gray300: '#D4C0A8',
-  gray400: '#B89880',
-  gray500: '#8C7358',
-  gray600: '#6B5540',
-  gray700: '#4F3E2C',
-  gray800: '#362A1E',
-  gray900: '#1E170F',
+  // ── Status — danger (warm red) ──────────────
+  danger: '#C8624A',           // --danger
+  destructive: '#C8624A',      // alias → danger
+  destructiveLight: '#F9E4DF',
+  destructiveBorder: '#E8B8AF',
 
-  overlay: 'rgba(43,31,14,0.4)',
+  // ── Info (blue) ─────────────────────────────
+  info: '#7B8FB8',             // --info — secondary chart, badges
+
+  // ── Misc ────────────────────────────────────
+  overlay: 'rgba(26,26,26,0.5)',
   shadowPrimary: 'rgba(63,90,69,0.15)',
   transparent: 'transparent',
 } as const
@@ -54,7 +64,7 @@ export const colors = {
 export type ColorKey = keyof typeof colors
 
 export const STATUS_COLORS: Record<'green' | 'yellow' | 'red', string> = {
-  green: '#2E7D32',
-  yellow: '#E65100',
-  red: '#C62828',
+  green: '#5F8D76',   // sage-600
+  yellow: '#E29A4B',  // warn
+  red: '#C8624A',     // danger
 }

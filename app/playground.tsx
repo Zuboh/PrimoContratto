@@ -106,41 +106,35 @@ export default function PlaygroundScreen() {
 
       {/* 01 · Colors */}
       <Section title="01 · Colors">
-        <SwatchGroup title="Brand" swatches={[
-          { name: 'primary', hex: '#4F6B4A' },
-          { name: 'primaryDark', hex: '#3F5A45' },
-          { name: 'primaryLight', hex: '#D4E8CF' },
-          { name: 'primaryForeground', hex: '#FFFFFF' },
+        <SwatchGroup title="Sage (Primary)" swatches={[
+          { name: 'sage-900', hex: '#3F5A45' },
+          { name: 'sage-700', hex: '#4F6B4A' },
+          { name: 'sage-600', hex: '#5F8D76' },
+          { name: 'sage-300', hex: '#BFCEBA' },
+          { name: 'sage-100', hex: '#DCE5D1' },
+          { name: 'sage-50', hex: '#E8EEDC' },
         ]} />
         <SwatchGroup title="Backgrounds" swatches={[
-          { name: 'background', hex: '#F5ECDC' },
-          { name: 'surface', hex: '#FFF5E8' },
-          { name: 'surfaceAlt', hex: '#FAF0E2' },
+          { name: 'bg (#F5ECDC)', hex: '#F5ECDC' },
+          { name: 'bg-2 (#F1E7D4)', hex: '#F1E7D4' },
+          { name: 'surface (#FBF6EA)', hex: '#FBF6EA' },
+          { name: 'surface-2 (#EFE6D2)', hex: '#EFE6D2' },
+          { name: 'surface-3 (#E8E0CC)', hex: '#E8E0CC' },
         ]} />
-        <SwatchGroup title="Text" swatches={[
-          { name: 'foreground', hex: '#2B1F0E' },
-          { name: 'muted', hex: '#8C7358' },
-          { name: 'placeholder', hex: '#B09575' },
-        ]} />
-        <SwatchGroup title="Borders" swatches={[
-          { name: 'border', hex: '#EDE3D5' },
-          { name: 'borderStrong', hex: '#D4C4B0' },
+        <SwatchGroup title="Ink / Text" swatches={[
+          { name: 'ink (#1A1A1A)', hex: '#1A1A1A' },
+          { name: 'ink-2 (#2C2A26)', hex: '#2C2A26' },
+          { name: 'muted (#6F6A60)', hex: '#6F6A60' },
+          { name: 'muted-2 (#9A938A)', hex: '#9A938A' },
         ]} />
         <SwatchGroup title="Status" swatches={[
-          { name: 'success', hex: '#2E7D32' },
-          { name: 'successLight', hex: '#F1F8E9' },
-          { name: 'warning', hex: '#E65100' },
-          { name: 'warningLight', hex: '#FFF3E0' },
-          { name: 'destructive', hex: '#C62828' },
-          { name: 'destructiveLight', hex: '#FFEBEE' },
-        ]} />
-        <SwatchGroup title="Gray Scale" swatches={[
-          { name: 'gray50', hex: '#FAF5EE' },
-          { name: 'gray200', hex: '#EAD9C8' },
-          { name: 'gray400', hex: '#B89880' },
-          { name: 'gray600', hex: '#6B5540' },
-          { name: 'gray800', hex: '#362A1E' },
-          { name: 'gray900', hex: '#1E170F' },
+          { name: 'success (#5F8D76)', hex: '#5F8D76' },
+          { name: 'successLight (#DCE5D1)', hex: '#DCE5D1' },
+          { name: 'warn (#E29A4B)', hex: '#E29A4B' },
+          { name: 'warnSoft (#F5C994)', hex: '#F5C994' },
+          { name: 'danger (#C8624A)', hex: '#C8624A' },
+          { name: 'dangerLight (#F9E4DF)', hex: '#F9E4DF' },
+          { name: 'info (#7B8FB8)', hex: '#7B8FB8' },
         ]} />
       </Section>
 
