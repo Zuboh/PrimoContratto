@@ -57,7 +57,7 @@ export default function OnboardingPreview() {
       {/* Salta */}
       <View style={{ flexDirection: 'row', justifyContent: 'flex-end', paddingHorizontal: spacing[6], paddingTop: spacing[2] }}>
         <Pressable onPress={dismiss} hitSlop={12}>
-          <Text style={{ fontSize: 14, fontFamily: 'Nunito_600SemiBold', color: colors.primary }}>Salta</Text>
+          <Text style={{ fontSize: 14, fontFamily: 'Quicksand_600SemiBold', color: colors.primary }}>Salta</Text>
         </Pressable>
       </View>
 
@@ -87,7 +87,7 @@ export default function OnboardingPreview() {
           ))}
         </View>
         <Pressable onPress={goNext} style={{ backgroundColor: colors.primary, borderRadius: radius.full, paddingVertical: 14, alignItems: 'center' }}>
-          <Text style={{ fontSize: 16, fontFamily: 'Nunito_600SemiBold', color: colors.primaryForeground }}>Inizia</Text>
+          <Text style={{ fontSize: 16, fontFamily: 'Quicksand_600SemiBold', color: colors.primaryForeground }}>Inizia</Text>
         </Pressable>
       </View>
     </SafeAreaView>
@@ -170,7 +170,7 @@ function Slide1() {
         <Text
           style={{
             fontSize: isSmallScreen ? 14 : 15,
-            fontFamily: 'Nunito_400Regular',
+            fontFamily: 'Quicksand_400Regular',
             color: colors.muted,
             textAlign: 'center',
             lineHeight: isSmallScreen ? 21 : 23,
@@ -210,7 +210,7 @@ function Slide2() {
         style={{
           marginTop: 150,
           fontSize: 27,
-          fontFamily: 'Nunito_600SemiBold',
+          fontFamily: 'Quicksand_600SemiBold',
           color: colors.foreground,
           textAlign: 'center',
           lineHeight: 38,
@@ -228,7 +228,7 @@ function Slide2() {
         style={{
           marginTop: 22,
           fontSize: 15,
-          fontFamily: 'Nunito_400Regular',
+          fontFamily: 'Quicksand_400Regular',
           color: colors.foreground,
           textAlign: 'center',
           lineHeight: 23,
@@ -287,7 +287,7 @@ function Slide3() {
         style={{
           marginTop: 150,
           fontSize: 27,
-          fontFamily: 'Nunito_600SemiBold',
+          fontFamily: 'Quicksand_600SemiBold',
           color: colors.foreground,
           textAlign: 'center',
           lineHeight: 38,
@@ -304,7 +304,7 @@ function Slide3() {
         style={{
           marginTop: 22,
           fontSize: 15,
-          fontFamily: 'Nunito_400Regular',
+          fontFamily: 'Quicksand_400Regular',
           color: colors.foreground,
           textAlign: 'center',
           lineHeight: 23,

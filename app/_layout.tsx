@@ -12,6 +12,7 @@ import {
 import {
   Quicksand_400Regular,
   Quicksand_600SemiBold,
+  Quicksand_700Bold,
 } from '@expo-google-fonts/quicksand'
 import { Stack } from 'expo-router'
 import * as SplashScreen from 'expo-splash-screen'
@@ -32,6 +33,7 @@ export default function RootLayout() {
     Inter_700Bold,
     Quicksand_400Regular,
     Quicksand_600SemiBold,
+    Quicksand_700Bold,
   })
 
   useEffect(() => {
