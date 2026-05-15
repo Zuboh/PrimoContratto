@@ -39,7 +39,7 @@ export function BottomNav() {
 
   const handlePress = (route: string) => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light)
-    router.push(route as any)
+    router.navigate(route as any)
   }
 
   return (
