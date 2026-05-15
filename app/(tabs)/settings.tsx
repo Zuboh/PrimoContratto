@@ -132,7 +132,7 @@ export default function SettingsScreen() {
               <SettingsRow
                 icon={<LogIn size={18} color={colors.muted} />}
                 label="Accedi o registrati"
-                onPress={() => router.push('/upload')}
+                onPress={() => router.push('/(auth)/login')}
                 {...rowProps}
               />
             )}

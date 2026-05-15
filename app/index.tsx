@@ -57,6 +57,7 @@ export default function OnboardingScreen() {
         pagingEnabled
         showsHorizontalScrollIndicator={false}
         scrollEnabled={false}
+        onScrollToIndexFailed={() => {}}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
           <View

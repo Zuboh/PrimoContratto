@@ -1,14 +1,14 @@
 export const colors = {
   // Sage (primary brand)
-  primary: '#4F7942',
-  primaryDark: '#3A5C30',
+  primary: '#4F6B4A',
+  primaryDark: '#3F5A45',
   primaryLight: '#D4E8CF',
   primaryForeground: '#FFFFFF',
-  gradientStart: '#4F7942',
-  gradientEnd: '#6B9663',
+  gradientStart: '#4F6B4A',
+  gradientEnd: '#5F8D76',
 
   // Cream backgrounds
-  background: '#FFFBF5',
+  background: '#F5ECDC',
   surface: '#FFF5E8',
   surfaceAlt: '#FAF0E2',
 
@@ -47,7 +47,7 @@ export const colors = {
   gray900: '#1E170F',
 
   overlay: 'rgba(43,31,14,0.4)',
-  shadowPrimary: 'rgba(79,121,66,0.15)',
+  shadowPrimary: 'rgba(63,90,69,0.15)',
   transparent: 'transparent',
 } as const
 

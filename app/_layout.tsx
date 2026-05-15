@@ -5,7 +5,6 @@ import {
 } from '@expo-google-fonts/inter'
 import {
   Nunito_400Regular,
-  Nunito_500Medium,
   Nunito_600SemiBold,
   Nunito_700Bold,
   Nunito_800ExtraBold,
@@ -22,7 +21,6 @@ SplashScreen.preventAutoHideAsync()
 export default function RootLayout() {
   const [fontsLoaded, fontError] = useFonts({
     Nunito_400Regular,
-    Nunito_500Medium,
     Nunito_600SemiBold,
     Nunito_700Bold,
     Nunito_800ExtraBold,

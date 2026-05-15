@@ -14,20 +14,20 @@ export const getToastConfig = (type: ToastType, colors: any): ToastConfig => {
   const map: Record<ToastType, ToastConfig> = {
     success: {
       icon: CheckCircle,
-      backgroundColor: '#ECFDF5',
-      borderColor: '#A7F3D0',
+      backgroundColor: '#F1F8E9',
+      borderColor: '#A5D6A7',
       iconColor: colors.success,
     },
     error: {
       icon: XCircle,
-      backgroundColor: '#FEF2F2',
-      borderColor: '#FECACA',
+      backgroundColor: '#FFEBEE',
+      borderColor: '#EF9A9A',
       iconColor: colors.destructive,
     },
     warning: {
       icon: AlertTriangle,
-      backgroundColor: '#FEF3E2',
-      borderColor: '#FCD38A',
+      backgroundColor: '#FFF3E0',
+      borderColor: '#FFCC80',
       iconColor: colors.warning,
     },
     info: {
