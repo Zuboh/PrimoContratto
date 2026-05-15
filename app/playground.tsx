@@ -96,7 +96,7 @@ export default function PlaygroundScreen() {
   const [sheetVisible, setSheetVisible] = useState(false)
   const [sheetVariant, setSheetVariant] = useState<'default' | 'confirmation' | 'destructive' | 'info' | 'success'>('default')
 
-  if (Platform.OS !== 'web') return <Redirect href="/(tabs)" />
+  if (Platform.OS !== 'web' && !__DEV__) return <Redirect href="/(tabs)" />
 
   return (
     <ScrollView
