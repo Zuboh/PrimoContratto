@@ -21,11 +21,13 @@ function NegotiationPointCard({
   colors,
   typography,
   spacing,
+  radius,
 }: {
   point: NegotiationPoint
   colors: ReturnType<typeof useTheme>['colors']
   typography: ReturnType<typeof useTheme>['typography']
   spacing: ReturnType<typeof useTheme>['spacing']
+  radius: ReturnType<typeof useTheme>['radius']
 }) {
   const [expanded, setExpanded] = useState(false)
 
@@ -33,7 +35,7 @@ function NegotiationPointCard({
     <View
       style={[
         styles.pointCard,
-        { backgroundColor: colors.surface, borderColor: colors.border },
+        { backgroundColor: colors.surface, borderColor: colors.border, borderRadius: radius.lg },
       ]}
     >
       <Pressable
@@ -99,7 +101,7 @@ function NegotiationPointCard({
 }
 
 export default function NegotiationScreen() {
-  const { colors, typography, spacing } = useTheme()
+  const { colors, typography, spacing, radius } = useTheme()
   const { currentAnalysis } = useAnalysisStore()
   const [result, setResult] = useState<NegotiationResult | null>(null)
   const [loading, setLoading] = useState(true)
@@ -158,7 +160,7 @@ export default function NegotiationScreen() {
           <Pressable
             style={[
               styles.retryButton,
-              { backgroundColor: colors.primary, marginTop: spacing[6] },
+              { backgroundColor: colors.primary, marginTop: spacing[6], borderRadius: radius.full },
             ]}
             onPress={() => router.back()}
           >
@@ -204,13 +206,19 @@ export default function NegotiationScreen() {
               colors={colors}
               typography={typography}
               spacing={spacing}
+              radius={radius}
             />
           ))}
 
           <View
             style={[
               styles.closingCard,
-              { backgroundColor: colors.surface, borderColor: colors.border, marginTop: spacing[4] },
+              {
+                backgroundColor: colors.surface,
+                borderColor: colors.border,
+                marginTop: spacing[4],
+                borderRadius: radius.lg,
+              },
             ]}
           >
             <Text
@@ -248,7 +256,6 @@ const styles = StyleSheet.create({
     padding: 24,
   },
   pointCard: {
-    borderRadius: 16,
     borderWidth: 1,
     padding: 16,
     marginBottom: 12,
@@ -262,12 +269,10 @@ const styles = StyleSheet.create({
     height: 1,
   },
   closingCard: {
-    borderRadius: 16,
     borderWidth: 1,
     padding: 16,
   },
   retryButton: {
-    borderRadius: 16,
     paddingVertical: 14,
     paddingHorizontal: 24,
     alignItems: 'center',

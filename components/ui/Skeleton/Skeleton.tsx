@@ -36,7 +36,7 @@ export function Skeleton({
     width,
     height,
     borderRadius: borderRadius ?? radius.md,
-    backgroundColor: colors.surface,
+    backgroundColor: colors.surfaceAlt,
     borderWidth: 1,
     borderColor: colors.border,
   }

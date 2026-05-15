@@ -27,7 +27,7 @@ function getDocTypeLabel(type: string) {
 }
 
 export default function HistoryScreen() {
-  const { colors, typography, spacing } = useTheme()
+  const { colors, typography, spacing, radius } = useTheme()
   const { entries, removeEntry, clearHistory } = useHistoryStore()
 
   const handleOpenEntry = (entry: AnalysisEntry) => {
@@ -56,6 +56,7 @@ export default function HistoryScreen() {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.background }}>
       <View style={[styles.header, { borderBottomColor: colors.border }]}>
+        <Text style={[typography.h1, { color: colors.foreground }]}>Storico</Text>
         {entries.length > 0 && (
           <Pressable onPress={handleClearAll} hitSlop={8}>
             <Trash2 size={20} color={colors.muted} />
@@ -85,7 +86,7 @@ export default function HistoryScreen() {
           <Pressable
             style={[
               styles.ctaButton,
-              { backgroundColor: colors.primary, marginTop: spacing[8] },
+              { backgroundColor: colors.primary, marginTop: spacing[8], borderRadius: radius.full },
             ]}
             onPress={() => router.push('/upload')}
           >
@@ -100,12 +101,33 @@ export default function HistoryScreen() {
           contentContainerStyle={[styles.listContent, { paddingBottom: 120 }]}
           showsVerticalScrollIndicator={false}
         >
+          {/* Chart placeholder */}
+          {/* TODO: replace with real salary trend chart */}
+          <View
+            style={{
+              height: 160,
+              backgroundColor: colors.surfaceAlt,
+              borderRadius: radius.lg,
+              borderWidth: 1,
+              borderColor: colors.border,
+              alignItems: 'center',
+              justifyContent: 'center',
+              marginBottom: spacing[4],
+            }}
+          >
+            <Text style={[typography.caption, { color: colors.muted }]}>Grafico in arrivo</Text>
+          </View>
+
           {entries.map((entry) => (
             <Pressable
               key={entry.id}
               style={[
                 styles.entryCard,
-                { backgroundColor: colors.surface, borderColor: colors.border },
+                {
+                  backgroundColor: colors.surface,
+                  borderColor: colors.border,
+                  borderRadius: radius.lg,
+                },
               ]}
               onPress={() => handleOpenEntry(entry)}
               onLongPress={() => handleDeleteEntry(entry.id)}
@@ -126,7 +148,12 @@ export default function HistoryScreen() {
                 </Text>
               </View>
               <View style={styles.entryBottom}>
-                <View style={[styles.badge, { backgroundColor: colors.primaryLight }]}>
+                <View
+                  style={[
+                    styles.badge,
+                    { backgroundColor: colors.primaryLight, borderRadius: radius.sm },
+                  ]}
+                >
                   <Text style={[typography.caption, { color: colors.primary }]}>
                     {getDocTypeLabel(entry.result.documentType)}
                   </Text>
@@ -161,7 +188,6 @@ const styles = StyleSheet.create({
     padding: 32,
   },
   ctaButton: {
-    borderRadius: 16,
     paddingVertical: 16,
     paddingHorizontal: 24,
     alignItems: 'center',
@@ -171,7 +197,6 @@ const styles = StyleSheet.create({
     gap: 12,
   },
   entryCard: {
-    borderRadius: 16,
     borderWidth: 1,
     padding: 16,
     gap: 10,
@@ -193,7 +218,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   badge: {
-    borderRadius: 8,
     paddingHorizontal: 8,
     paddingVertical: 3,
   },

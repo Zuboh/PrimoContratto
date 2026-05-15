@@ -1,10 +1,13 @@
 import { TextStyle } from 'react-native'
 
 export const fontFamily = {
-  regular: 'Inter_400Regular',
-  medium: 'Inter_500Medium',
-  semiBold: 'Inter_600SemiBold',
-  bold: 'Inter_700Bold',
+  regular: 'Nunito_400Regular',
+  medium: 'Nunito_500Medium',
+  semiBold: 'Nunito_600SemiBold',
+  bold: 'Nunito_700Bold',
+  extraBold: 'Nunito_800ExtraBold',
+  numericRegular: 'Inter_400Regular',
+  numericBold: 'Inter_700Bold',
 } as const
 
 export const fontSize = {
@@ -104,7 +107,7 @@ export const typography = {
 
   brand: {
     fontSize: fontSize['3xl'],
-    fontFamily: fontFamily.bold,
+    fontFamily: fontFamily.extraBold,
   } as TextStyle,
 } as const
 

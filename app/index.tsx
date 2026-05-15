@@ -1,124 +1,135 @@
-import { Button } from '@/components/ui/Button'
-import { Logo } from '@/components/ui/Logo/Logo'
+import { IllustrationPlaceholder } from '@/components/ui/IllustrationPlaceholder'
 import { useTheme } from '@/hooks/useTheme'
 import { router } from 'expo-router'
-import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import React, { useRef, useState } from 'react'
+import {
+  Dimensions,
+  FlatList,
+  Pressable,
+  Text,
+  View,
+} from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
-export default function WorkInProgress() {
-  const { colors, typography, spacing, radius } = useTheme()
+const SLIDES = [
+  {
+    id: '1',
+    headline: 'Carica il cedolino',
+    subtitle: 'Basta una foto o un PDF',
+  },
+  {
+    id: '2',
+    headline: 'Analisi in 30 secondi',
+    subtitle: "L'AI legge tutto per te",
+  },
+  {
+    id: '3',
+    headline: 'Capisce ogni voce',
+    subtitle: 'Lordo, netto, detrazioni — tutto chiaro',
+  },
+]
 
-  const IS_DEV = __DEV__
+const { width: SCREEN_WIDTH } = Dimensions.get('window')
+
+export default function OnboardingScreen() {
+  const { colors, typography, spacing, radius, fontFamily } = useTheme()
+  const [activeIndex, setActiveIndex] = useState(0)
+  const listRef = useRef<FlatList>(null)
+
+  const isLast = activeIndex === SLIDES.length - 1
+
+  const goNext = () => {
+    if (isLast) {
+      router.replace('/(tabs)')
+      return
+    }
+    const next = activeIndex + 1
+    listRef.current?.scrollToIndex({ index: next, animated: true })
+    setActiveIndex(next)
+  }
 
   return (
-    <View style={[styles.container, { backgroundColor: colors.background }]}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: colors.background }}>
+      <FlatList
+        ref={listRef}
+        data={SLIDES}
+        horizontal
+        pagingEnabled
+        showsHorizontalScrollIndicator={false}
+        scrollEnabled={false}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
+          <View
+            style={{
+              width: SCREEN_WIDTH,
+              flex: 1,
+              alignItems: 'center',
+              justifyContent: 'center',
+              paddingHorizontal: spacing[6],
+              gap: spacing[6],
+            }}
+          >
+            <IllustrationPlaceholder size="lg" />
+            <View style={{ gap: spacing[2], alignItems: 'center' }}>
+              <Text
+                style={[
+                  typography.h1,
+                  { color: colors.foreground, textAlign: 'center' },
+                ]}
+              >
+                {item.headline}
+              </Text>
+              <Text
+                style={[
+                  typography.bodyLg,
+                  { color: colors.muted, textAlign: 'center' },
+                ]}
+              >
+                {item.subtitle}
+              </Text>
+            </View>
+          </View>
+        )}
+      />
+
+      {/* Bottom controls */}
       <View
-        style={[
-          styles.card,
-          {
-            backgroundColor: colors.surface,
-            borderRadius: radius.xl,
-            borderColor: colors.border,
-            padding: spacing[8],
-            gap: spacing[5],
-          },
-        ]}
+        style={{
+          paddingHorizontal: spacing[6],
+          paddingBottom: spacing[8],
+          gap: spacing[5],
+        }}
       >
-        <View style={styles.center}>
-          <Logo size={64} />
+        {/* Dot pagination */}
+        <View style={{ flexDirection: 'row', justifyContent: 'center', gap: spacing[2] }}>
+          {SLIDES.map((_, i) => (
+            <View
+              key={i}
+              style={{
+                width: i === activeIndex ? 20 : 8,
+                height: 8,
+                borderRadius: radius.full,
+                backgroundColor: i === activeIndex ? colors.primary : colors.border,
+              }}
+            />
+          ))}
         </View>
 
-        <View
-          style={[
-            styles.wipBadge,
-            {
-              backgroundColor: colors.warningLight,
-              borderColor: colors.warningBorder,
-              borderRadius: radius.full,
-              paddingVertical: spacing[1],
-              paddingHorizontal: spacing[4],
-            },
-          ]}
+        {/* CTA button */}
+        <Pressable
+          onPress={goNext}
+          style={{
+            backgroundColor: colors.primary,
+            borderRadius: radius.full,
+            paddingVertical: spacing[4],
+            alignItems: 'center',
+          }}
         >
-          <Text
-            style={{ fontSize: 12, fontWeight: '600', color: colors.warning }}
-          >
-            🚧 Work in Progress
+          <Text style={{ fontFamily: fontFamily.semiBold, fontSize: 14, color: colors.primaryForeground }}>
+            {isLast ? 'Inizia' : 'Avanti →'}
           </Text>
-        </View>
-
-        <View style={{ gap: spacing[2] }}>
-          <Text
-            style={[
-              typography.h2,
-              { color: colors.foreground, textAlign: 'center' },
-            ]}
-          >
-            PrimoContratto
-          </Text>
-          {IS_DEV && (
-            <Text
-              style={[
-                typography.body,
-                { color: colors.muted, textAlign: 'center', lineHeight: 20 },
-              ]}
-            >
-              L&apos;app è in costruzione.{'\n'}
-              Dai un&apos;occhiata ai componenti UI.
-            </Text>
-          )}
-        </View>
-        {IS_DEV && (
-          <Button
-            label="Apri Playground"
-            onPress={() => router.navigate('/playground')}
-          />
-        )}
-        {IS_DEV && (
-          <Button label="Apri App" onPress={() => router.navigate('/(tabs)')} />
-        )}
+        </Pressable>
       </View>
-
-      <Text
-        style={[
-          typography.caption,
-          { color: colors.muted, marginTop: spacing[6] },
-        ]}
-      >
-        v1.0.0 · Solo in __DEV__
-      </Text>
-    </View>
+    </SafeAreaView>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 24,
-  },
-  card: {
-    width: '100%',
-    maxWidth: 340,
-    alignItems: 'center',
-    borderWidth: 1,
-    shadowColor: '#0891B2',
-    shadowOffset: { width: 0, height: 8 },
-    shadowOpacity: 0.1,
-    shadowRadius: 24,
-    elevation: 6,
-  },
-  center: {
-    alignItems: 'center',
-  },
-  wipBadge: {
-    borderWidth: 1,
-    alignSelf: 'center',
-  },
-})
-
-/* export default function Index() {
-  return <Redirect href="/(tabs)" />
-}
- */

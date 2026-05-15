@@ -31,11 +31,13 @@ export const createStyles = (theme: Theme) =>
       color: theme.colors.muted,
     },
     grossAmount: {
-      ...theme.typography.h2,
+      fontFamily: theme.fontFamily.numericBold,
+      fontSize: theme.fontSize['4xl'],
       color: theme.colors.foreground,
     },
     netAmount: {
-      ...theme.typography.h2,
+      fontFamily: theme.fontFamily.numericBold,
+      fontSize: theme.fontSize['4xl'],
       color: theme.colors.primary,
     },
   })

@@ -8,15 +8,14 @@ export const createCardStyles = (theme: Theme) => {
     base: {
       borderRadius: radius.lg,
       padding: spacing[4],
+      backgroundColor: colors.surface,
       ...shadow.sm,
     },
     default: {
-      backgroundColor: colors.background,
       borderWidth: 1,
       borderColor: colors.border,
     },
     surface: {
-      backgroundColor: colors.surface,
       borderLeftWidth: 4,
       borderLeftColor: colors.primary,
     },

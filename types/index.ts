@@ -97,6 +97,7 @@ export interface UploadedFile {
 export interface User {
   id: string
   email: string
+  name?: string
   plan: Plan
   analysesThisMonth: number
   createdAt: string

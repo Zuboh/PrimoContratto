@@ -28,8 +28,8 @@ export const createStyles = (theme: Theme) =>
       borderColor: theme.colors.border,
     },
     chipSuccess: {
-      backgroundColor: '#ECFDF5',
-      borderColor: '#A7F3D0',
+      backgroundColor: theme.colors.successLight,
+      borderColor: theme.colors.successBorder,
     },
     chipTextActive: {
       fontSize: 13,

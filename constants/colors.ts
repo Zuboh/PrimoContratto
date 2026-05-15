@@ -1,54 +1,60 @@
 export const colors = {
-  primary: '#0891B2',
-  primaryDark: '#0E7490',
-  primaryLight: '#CFFAFE',
+  // Sage (primary brand)
+  primary: '#4F7942',
+  primaryDark: '#3A5C30',
+  primaryLight: '#D4E8CF',
   primaryForeground: '#FFFFFF',
-  gradientStart: '#0E6481',
-  gradientEnd: '#30A3A5',
+  gradientStart: '#4F7942',
+  gradientEnd: '#6B9663',
 
-  background: '#FFFFFF',
-  surface: '#F0FDFF',
-  surfaceAlt: '#F8FAFC',
+  // Cream backgrounds
+  background: '#FFFBF5',
+  surface: '#FFF5E8',
+  surfaceAlt: '#FAF0E2',
 
-  foreground: '#0F172A',
-  muted: '#64748B',
-  placeholder: '#94A3B8',
+  // Warm text
+  foreground: '#2B1F0E',
+  muted: '#8C7358',
+  placeholder: '#B09575',
 
-  border: '#E0F7FA',
-  borderStrong: '#BAE6FD',
+  // Warm borders
+  border: '#EDE3D5',
+  borderStrong: '#D4C4B0',
 
-  success: '#0B7B3E',
-  successLight: '#ECFDF5',
-  successBorder: '#A7F3D0',
+  // Status
+  success: '#2E7D32',
+  successLight: '#F1F8E9',
+  successBorder: '#A5D6A7',
 
-  warning: '#C05B00',
-  warningLight: '#FEF3E2',
-  warningBorder: '#FCD34D',
+  warning: '#E65100',
+  warningLight: '#FFF3E0',
+  warningBorder: '#FFCC80',
 
-  destructive: '#DC2626',
-  destructiveLight: '#FEF2F2',
-  destructiveBorder: '#FECACA',
+  destructive: '#C62828',
+  destructiveLight: '#FFEBEE',
+  destructiveBorder: '#EF9A9A',
 
-  gray50: '#F8FAFC',
-  gray100: '#F1F5F9',
-  gray200: '#E2E8F0',
-  gray300: '#CBD5E1',
-  gray400: '#94A3B8',
-  gray500: '#64748B',
-  gray600: '#475569',
-  gray700: '#334155',
-  gray800: '#1E293B',
-  gray900: '#0F172A',
+  // Warm gray scale
+  gray50: '#FAF5EE',
+  gray100: '#F5EDE2',
+  gray200: '#EAD9C8',
+  gray300: '#D4C0A8',
+  gray400: '#B89880',
+  gray500: '#8C7358',
+  gray600: '#6B5540',
+  gray700: '#4F3E2C',
+  gray800: '#362A1E',
+  gray900: '#1E170F',
 
-  overlay: 'rgba(0,0,0,0.4)',
-  shadowPrimary: 'rgba(8,145,178,0.15)',
+  overlay: 'rgba(43,31,14,0.4)',
+  shadowPrimary: 'rgba(79,121,66,0.15)',
   transparent: 'transparent',
 } as const
 
 export type ColorKey = keyof typeof colors
 
 export const STATUS_COLORS: Record<'green' | 'yellow' | 'red', string> = {
-  green: '#0B7B3E',
-  yellow: '#C05B00',
-  red: '#DC2626',
+  green: '#2E7D32',
+  yellow: '#E65100',
+  red: '#C62828',
 }

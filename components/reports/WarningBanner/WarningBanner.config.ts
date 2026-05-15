@@ -1,25 +1,26 @@
 import { AlertTriangle, CheckCircle, XCircle } from 'lucide-react-native'
+import { colors } from '@/constants/colors'
 
 export const CONFIG = {
   positive: {
     label: 'Contratto nella norma — nessuna clausola critica.',
-    backgroundColor: '#ECFDF5',
-    borderColor: '#0B7B3E',
+    backgroundColor: colors.successLight,
+    borderColor: colors.success,
     icon: CheckCircle,
-    iconColor: '#0B7B3E',
+    iconColor: colors.success,
   },
   warning: {
     label: 'Alcune clausole meritano attenzione prima di firmare.',
-    backgroundColor: '#FEF3E2',
-    borderColor: '#C05B00',
+    backgroundColor: colors.warningLight,
+    borderColor: colors.warning,
     icon: AlertTriangle,
-    iconColor: '#C05B00',
+    iconColor: colors.warning,
   },
   critical: {
     label: 'Clausole critiche presenti — non firmare senza negoziare.',
-    backgroundColor: '#FEF2F2',
-    borderColor: '#DC2626',
+    backgroundColor: colors.destructiveLight,
+    borderColor: colors.destructive,
     icon: XCircle,
-    iconColor: '#DC2626',
+    iconColor: colors.destructive,
   },
 }

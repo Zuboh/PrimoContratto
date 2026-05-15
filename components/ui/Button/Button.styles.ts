@@ -16,7 +16,7 @@ export const createButtonStyles = (
       gap: spacing[2],
       paddingVertical: spacing[4],
       paddingHorizontal: spacing[6],
-      borderRadius: radius.lg,
+      borderRadius: radius.full,
       width: fullWidth ? '100%' : undefined,
       opacity: disabled ? 0.5 : 1,
     },

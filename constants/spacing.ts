@@ -19,15 +19,15 @@ export const spacing = {
 export const radius = {
   sm: 8,
   md: 12,
-  lg: 16,
-  xl: 20,
-  '2xl': 24,
+  lg: 24,
+  xl: 28,
+  '2xl': 32,
   full: 9999,
 } as const
 
 export const shadow = {
   sm: {
-    shadowColor: '#0891B2',
+    shadowColor: 'rgba(79,121,66,1)',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.06,
     shadowRadius: 4,
@@ -35,7 +35,7 @@ export const shadow = {
   } as ViewStyle,
 
   md: {
-    shadowColor: '#0891B2',
+    shadowColor: 'rgba(79,121,66,1)',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.1,
     shadowRadius: 8,
@@ -43,7 +43,7 @@ export const shadow = {
   } as ViewStyle,
 
   lg: {
-    shadowColor: '#0891B2',
+    shadowColor: 'rgba(79,121,66,1)',
     shadowOffset: { width: 0, height: 8 },
     shadowOpacity: 0.15,
     shadowRadius: 16,
@@ -51,11 +51,19 @@ export const shadow = {
   } as ViewStyle,
 
   button: {
-    shadowColor: '#0891B2',
+    shadowColor: 'rgba(79,121,66,1)',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.25,
     shadowRadius: 12,
     elevation: 6,
+  } as ViewStyle,
+
+  fab: {
+    shadowColor: 'rgba(79,121,66,1)',
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.25,
+    shadowRadius: 16,
+    elevation: 10,
   } as ViewStyle,
 } as const
 

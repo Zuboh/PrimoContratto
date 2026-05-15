@@ -5,7 +5,7 @@ export const createStyles = (theme: Theme) =>
   StyleSheet.create({
     container: {
       backgroundColor: theme.colors.surface,
-      borderRadius: 16,
+      borderRadius: theme.radius.lg,
       padding: theme.spacing[4],
       marginBottom: theme.spacing[4],
     },

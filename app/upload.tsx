@@ -1,5 +1,4 @@
 import { BottomNav } from '@/components/layout/BottomNav/BottomNav'
-import { LogoWithText } from '@/components/ui/Logo/Logo'
 import { UploadZone } from '@/components/upload/UploadZone'
 import { useTheme } from '@/hooks/useTheme'
 import { useUpload } from '@/hooks/useUpload'
@@ -9,19 +8,26 @@ import { StyleSheet, Text, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 export default function UploadScreen() {
-  const { colors, typography, spacing } = useTheme()
+  const { colors, typography, spacing, radius } = useTheme()
   const { handlePickPdf, handleCamera, loadingPdf, loadingCamera } = useUpload()
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.background }}>
       <View style={styles.container}>
-        <LogoWithText size={36} style={{ marginBottom: spacing[6] }} />
+        <Text style={[typography.h1, { color: colors.foreground, marginBottom: spacing[6] }]}>
+          Carica cedolino
+        </Text>
         <UploadZone
           onPickPdf={handlePickPdf}
           onCamera={handleCamera}
           loading={loadingPdf || loadingCamera}
         />
-        <View style={[styles.privacyBadge, { borderColor: colors.border }]}>
+        <View
+          style={[
+            styles.privacyBadge,
+            { borderColor: colors.border, borderRadius: radius.full },
+          ]}
+        >
           <Lock size={12} color={colors.muted} />
           <Text style={[typography.caption, { color: colors.muted }]}>
             I tuoi dati non vengono salvati
@@ -46,7 +52,6 @@ const styles = StyleSheet.create({
     gap: 6,
     marginTop: 20,
     borderWidth: 1,
-    borderRadius: 20,
     paddingHorizontal: 12,
     paddingVertical: 6,
   },

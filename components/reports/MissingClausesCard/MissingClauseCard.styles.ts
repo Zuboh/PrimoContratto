@@ -4,8 +4,8 @@ import { StyleSheet } from 'react-native'
 export const createStyles = (theme: Theme) =>
   StyleSheet.create({
     container: {
-      backgroundColor: '#FEF3E2',
-      borderRadius: theme.radius.xl,
+      backgroundColor: theme.colors.warningLight,
+      borderRadius: theme.radius.lg,
       padding: theme.spacing[4],
       gap: theme.spacing[4],
     },
@@ -20,7 +20,7 @@ export const createStyles = (theme: Theme) =>
     },
     divider: {
       height: 1,
-      backgroundColor: '#F5D9A8',
+      backgroundColor: theme.colors.warningBorder,
     },
     item: {
       gap: theme.spacing[1],

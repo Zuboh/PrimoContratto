@@ -10,7 +10,6 @@ import { PayslipHeader } from '@/components/reports/PayslipHeader/PayslipHeader'
 import { PayslipItems } from '@/components/reports/PayslipItems/PayslipItems'
 import { ScoreBar } from '@/components/reports/ScoreBar/ScoreBar'
 import { Badge } from '@/components/ui/Badge'
-import { LogoWithText } from '@/components/ui/Logo/Logo'
 import { useTheme } from '@/hooks/useTheme'
 import { useAnalysisStore } from '@/stores/analysisStore'
 import { ContractResult, PayslipResult } from '@/types'
@@ -95,12 +94,18 @@ export default function ReportScreen() {
       >
         {/* ── Header ── */}
         <View style={styles.headerRow}>
-          <LogoWithText size={28} />
+          <Text style={[typography.h2, { color: colors.foreground, flex: 1 }]}>
+            {isPayslip
+              ? `Busta paga · ${(currentAnalysis as any).period}`
+              : isContract
+              ? (currentAnalysis as any).contractType
+              : 'Report'}
+          </Text>
           {currentFileName && (
             <Text
               style={[
                 typography.caption,
-                { color: colors.muted, flex: 1, textAlign: 'right' },
+                { color: colors.muted, maxWidth: 120, textAlign: 'right' },
               ]}
               numberOfLines={1}
               ellipsizeMode="middle"

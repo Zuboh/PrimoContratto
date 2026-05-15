@@ -98,7 +98,7 @@ export default function SettingsScreen() {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.background }}>
       <View style={[styles.header, { borderBottomColor: colors.border }]}>
-        <Text style={[typography.h2, { color: colors.foreground }]}>Impostazioni</Text>
+        <Text style={[typography.h2, { color: colors.foreground }]}>Profilo</Text>
       </View>
 
       <ScrollView

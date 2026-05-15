@@ -9,6 +9,9 @@ export const createStyles = (theme: Theme, bottomInset?: number) =>
       justifyContent: 'space-around',
       paddingBottom: bottomInset || 8,
       paddingTop: theme.spacing[2],
+      backgroundColor: theme.colors.background,
+      borderTopWidth: 1,
+      borderTopColor: theme.colors.border,
     },
     tabButton: {
       flex: 1,
@@ -19,6 +22,6 @@ export const createStyles = (theme: Theme, bottomInset?: number) =>
     },
     label: {
       fontSize: 10,
-      fontWeight: '500',
+      fontFamily: theme.fontFamily.semiBold,
     },
   })
