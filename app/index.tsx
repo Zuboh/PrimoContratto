@@ -101,7 +101,7 @@ export default function OnboardingScreen() {
           style={{ backgroundColor: colors.primary, borderRadius: radius.full, paddingVertical: 14, alignItems: 'center' }}
         >
           <Text style={{ fontSize: 16, fontFamily: 'Quicksand_600SemiBold', color: colors.primaryForeground }}>
-            Inizia
+            {activeIndex === SLIDES.length - 1 ? 'Inizia' : 'Continua'}
           </Text>
         </Pressable>
       </View>
