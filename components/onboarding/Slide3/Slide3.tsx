@@ -1,5 +1,4 @@
 import { useTheme } from '@/hooks/useTheme'
-import { Leaf } from 'lucide-react-native'
 import React from 'react'
 import { Dimensions, Image, Text, View, useWindowDimensions } from 'react-native'
 import { createStyles } from './Slide3.styles'
@@ -17,10 +16,6 @@ export function Slide3() {
 
   return (
     <View style={[styles.container, { width: W }]}>
-      <View style={styles.iconCircle}>
-        <Leaf size={40} color={theme.colors.sage600} strokeWidth={1.7} />
-      </View>
-
       <Text style={styles.title}>
         Un compagno sereno,{'\n'}
         ogni mese.

@@ -1,5 +1,4 @@
 import { useTheme } from '@/hooks/useTheme'
-import { ShieldCheck } from 'lucide-react-native'
 import React from 'react'
 import { Dimensions, Image, Text, View, useWindowDimensions } from 'react-native'
 import { createStyles } from './Slide2.styles'
@@ -17,10 +16,6 @@ export function Slide2() {
 
   return (
     <View style={[styles.container, { width: W }]}>
-      <View style={styles.iconCircle}>
-        <ShieldCheck size={40} color={theme.colors.sage600} strokeWidth={1.7} />
-      </View>
-
       <Text style={styles.title}>
         Capisci ogni voce{'\n'}
         della tua busta paga,{'\n'}

@@ -18,7 +18,7 @@ export const createStyles = (theme: Theme, isSmallScreen: boolean) =>
       justifyContent: 'center',
     },
     title: {
-      marginTop: 42,
+      marginTop: 200,
       fontSize: 27,
       fontFamily: 'Quicksand_600SemiBold',
       color: theme.colors.foreground,
