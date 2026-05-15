@@ -136,7 +136,7 @@ function Slide1() {
       <View style={{ alignItems: 'center', paddingTop: spacing[4] }}>
         <Image
           source={require('@/assets/images/logo-wordmark.png')}
-          style={{ width: 220, height: 72 }}
+          style={{ width: '90%', aspectRatio: 3 }}
           resizeMode="contain"
         />
       </View>
@@ -145,7 +145,7 @@ function Slide1() {
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         <Image
           source={require('@/assets/images/panda-sitting.png')}
-          style={{ width: W - 80, maxHeight: 300 }}
+          style={{ width: W - 32, maxHeight: 340 }}
           resizeMode="contain"
         />
       </View>
@@ -224,7 +224,7 @@ function Slide2() {
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'flex-end', paddingBottom: spacing[2] }}>
         <Image
           source={require('@/assets/images/panda-lying.png')}
-          style={{ width: W - 80, maxHeight: 240 }}
+          style={{ width: W - 32, maxHeight: 260 }}
           resizeMode="contain"
         />
       </View>
@@ -287,7 +287,7 @@ function Slide3() {
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'flex-end', paddingBottom: spacing[2] }}>
         <Image
           source={require('@/assets/images/panda-leaf.png')}
-          style={{ width: W - 80, maxHeight: 260 }}
+          style={{ width: W - 32, maxHeight: 320 }}
           resizeMode="contain"
         />
       </View>

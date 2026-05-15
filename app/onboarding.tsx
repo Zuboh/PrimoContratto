@@ -91,10 +91,10 @@ function Slide1() {
   return (
     <View style={{ width: W, flex: 1, paddingHorizontal: 24 }}>
       <View style={{ alignItems: 'center', paddingTop: spacing[4] }}>
-        <Image source={require('@/assets/images/logo-wordmark.png')} style={{ width: 220, height: 72 }} resizeMode="contain" />
+        <Image source={require('@/assets/images/logo-wordmark.png')} style={{ width: '90%', aspectRatio: 3 }} resizeMode="contain" />
       </View>
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Image source={require('@/assets/images/panda-sitting.png')} style={{ width: W - 80, maxHeight: 300 }} resizeMode="contain" />
+        <Image source={require('@/assets/images/panda-sitting.png')} style={{ width: W - 32, maxHeight: 340 }} resizeMode="contain" />
       </View>
       <View style={{ alignItems: 'center', paddingBottom: spacing[4] }}>
         <Text style={{ fontSize: 14, fontFamily: 'Nunito_400Regular', color: colors.muted, textAlign: 'center', lineHeight: 22, maxWidth: 260 }}>
@@ -123,7 +123,7 @@ function Slide2() {
         Spieghiamo tutto in modo chiaro e semplice, per darti sempre trasparenza e fiducia.
       </Text>
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'flex-end', paddingBottom: spacing[2] }}>
-        <Image source={require('@/assets/images/panda-lying.png')} style={{ width: W - 80, maxHeight: 240 }} resizeMode="contain" />
+        <Image source={require('@/assets/images/panda-lying.png')} style={{ width: W - 32, maxHeight: 260 }} resizeMode="contain" />
       </View>
     </View>
   )
@@ -147,7 +147,7 @@ function Slide3() {
         Ti accompagniamo ogni mese con chiarezza e cura, perché capire il tuo stipendio non dovrebbe essere stressante.
       </Text>
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'flex-end', paddingBottom: spacing[2] }}>
-        <Image source={require('@/assets/images/panda-leaf.png')} style={{ width: W - 80, maxHeight: 260 }} resizeMode="contain" />
+        <Image source={require('@/assets/images/panda-leaf.png')} style={{ width: W - 32, maxHeight: 320 }} resizeMode="contain" />
       </View>
     </View>
   )
