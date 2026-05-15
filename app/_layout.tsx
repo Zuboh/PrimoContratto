@@ -46,7 +46,6 @@ export default function RootLayout() {
           <Stack.Screen name="upload" />
           <Stack.Screen name="loading" />
           <Stack.Screen name="report/[id]" />
-          <Stack.Screen name="negotation/[id]" />
           {__DEV__ && <Stack.Screen name="playground" />}
         </Stack>
       </ToastProvider>

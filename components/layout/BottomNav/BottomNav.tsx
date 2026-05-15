@@ -54,8 +54,7 @@ export function BottomNav() {
               ? pathname === '/' ||
                 pathname === '/upload' ||
                 pathname === '/loading' ||
-                pathname.startsWith('/report') ||
-                pathname.startsWith('/negotation')
+                pathname.startsWith('/report')
               : pathname === route || pathname.endsWith(route)
           }
           onPress={() => handlePress(route)}

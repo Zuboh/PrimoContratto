@@ -1,2 +1,0 @@
-export { GradientText } from './GradientText';
-
