@@ -1,6 +1,6 @@
-# PrimoContratto
+# Primo
 
-[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/Zuboh/PrimoContratto)
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/Zuboh/Primo)
 
 App mobile per l'analisi automatica di contratti di lavoro italiani.
 Carica il tuo contratto e ricevi un'analisi completa in 30 secondi.
@@ -9,7 +9,7 @@ Carica il tuo contratto e ricevi un'analisi completa in 30 secondi.
 
 ## 📖 Documentazione
 
-👉 [Apri la wiki su DeepWiki](https://deepwiki.com/Zuboh/PrimoContratto)
+👉 [Apri la wiki su DeepWiki](https://deepwiki.com/Zuboh/Primo)
 
 ---
 

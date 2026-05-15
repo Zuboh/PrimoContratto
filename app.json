@@ -1,18 +1,18 @@
 {
   "expo": {
-    "name": "PrimoContratto",
-    "slug": "PrimoContratto",
+    "name": "Primo",
+    "slug": "primo",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "primocontratto",
+    "scheme": "primo",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
       "infoPlist": {
-        "NSDocumentsFolderUsageDescription": "PrimoContratto ha bisogno di accedere ai documenti per caricare il contratto.",
-        "NSFileProviderDomainUsageDescription": "PrimoContratto ha bisogno di accedere ai file per caricare il contratto."
+        "NSDocumentsFolderUsageDescription": "Primo ha bisogno di accedere ai documenti per caricare il contratto.",
+        "NSFileProviderDomainUsageDescription": "Primo ha bisogno di accedere ai file per caricare il contratto."
       }
     },
     "android": {
@@ -24,7 +24,7 @@
       },
       "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false,
-      "package": "com.zuboh.PrimoContratto"
+      "package": "com.zuboh.primo"
     },
     "web": {
       "output": "static",
@@ -47,9 +47,9 @@
       [
         "expo-image-picker",
         {
-          "cameraPermission": "PrimoContratto ha bisogno di accedere alla fotocamera per fotografare il contratto.",
+          "cameraPermission": "Primo ha bisogno di accedere alla fotocamera per fotografare il contratto.",
           "microphonePermission": false,
-          "photosPermission": "PrimoContratto ha bisogno di accedere alle foto per caricare il contratto."
+          "photosPermission": "Primo ha bisogno di accedere alle foto per caricare il contratto."
         }
       ],
       [

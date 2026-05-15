@@ -1,8 +1,8 @@
 export const APP = {
-  name: 'PrimoContratto',
+  name: 'Primo',
   version: '1.0.0',
   description: 'Analisi AI gratuita dei contratti di lavoro',
-  supportEmail: 'support@primocontratto.it',
+  supportEmail: 'support@primo.it',
 } as const
 
 export const API = {
