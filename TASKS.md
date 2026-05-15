@@ -42,17 +42,15 @@
 - [ ] **Loading / Analisi in corso** — match `docs/design/screenshots/primo/caricamento.png`; progress bar, step checklist, illustration slot
 - [ ] **Riepilogo** — match `docs/design/screenshots/primo/riepilogo.png`; header card with panda slot, salary breakdown, action cards
 - [x] **Onboarding** — 3 slides with real panda illustrations, Primo wordmark, Salta skip button, swipe + dot pagination; 3 slides, illustration slots, dot pagination, CTA
-- [ ] **Login** — match Design System §16.7; form card, fields with icons, 'Accedi' pill CTA, Google button
+- [ ] **Login** ← IN PROGRESS — match Design System §16.7; form card, fields with icons, 'Accedi' pill CTA, Google button
 - [ ] **Register** — match Design System §16.7; form card, live password helper, terms checkbox, 'Registrati' CTA
 
 ### Design System Components to Build
 - [x] **TextField component** — label, icon, helper, error/success states, focus ring
 - [x] **BottomSheet component** — 5 variants, drag handle, reanimated slide-up, overlay
 - [x] **Checkbox + Radio** — 22×22px, sage-700 checked state
-- [x] **Toggle switch** — 50×30px, thumb animation, sage-700 on — label + icon + helper text + error state; Design System §16.1
-- [ ] **BottomSheet component** — 5 variants (default, confirm, destructive, info, loading); Design System §14
+- [x] **Toggle switch** — 50×30px, thumb animation, sage-700 on
 - [ ] **EmptyState component** — IllustrationPlaceholder + title + body + CTA button; Design System §12
-- [ ] **Checkbox + Radio** — form controls; Design System §16.4
 - [ ] **FormField wrapper** — label + input + helper; Design System §16.5
 
 ### Cleanup
