@@ -24,7 +24,7 @@
 - [ ] **Google authentication** — implement "Continua con Google" button in login screen using Supabase OAuth + `expo-auth-session`; handle redirect back to app and session creation
 
 ### Onboarding
-- [ ] **Remove icon circles from Slide2 + Slide3** — currently ShieldCheck (slide 2) and Leaf (slide 3) show in sage circles at the top; user wants to remove them and increase title `marginTop` to fill space. Files: `components/onboarding/Slide2/Slide2.tsx`, `Slide2.styles.ts`, `Slide3/Slide3.tsx`, `Slide3.styles.ts` — set `title.marginTop: 200`, delete `<View style={styles.iconCircle}>` blocks.
+- [x] **Remove icon circles from Slide2 + Slide3** — currently ShieldCheck (slide 2) and Leaf (slide 3) show in sage circles at the top; user wants to remove them and increase title `marginTop` to fill space. Files: `components/onboarding/Slide2/Slide2.tsx`, `Slide2.styles.ts`, `Slide3/Slide3.tsx`, `Slide3.styles.ts` — set `title.marginTop: 200`, delete `<View style={styles.iconCircle}>` blocks.
 
 ### UX / Polish
 - [ ] **Swipe between tabs** — add horizontal swipe gesture to switch between Panoramica / Storico / Profilo tabs; likely needs `ViewPager` or Tabs `tabBarScrollEnabled` + gesture handler
