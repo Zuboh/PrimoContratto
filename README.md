@@ -1,4 +1,4 @@
-# PrimoContratto
+# Primo
 
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/Zuboh/PrimoContratto)
 
